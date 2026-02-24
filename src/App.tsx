@@ -32,11 +32,15 @@ export default function App() {
   const programmaticScrollRef = useRef(false);
   const pendingScrollIdRef = useRef<string | null>(null);
 
+  // mobile detection (coarse pointer / touch device)
+  const isMobileRef = useRef(false);
+
   const setUnlocked = (v: boolean) => {
     unlockedRef.current = v;
     setScrollUnlocked(v);
   };
 
+  // smoother (lebih enak di HP, tidak lompat)
   const animateToTarget = () => {
     if (rafRef.current) return;
 
@@ -46,7 +50,9 @@ export default function App() {
       const current = progressRef.current;
       const target = targetRef.current;
 
-      const next = current + (target - current) * 0.35;
+      // smoothing: lebih kecil = lebih lembut
+      const smoothing = isMobileRef.current ? 0.22 : 0.16;
+      const next = current + (target - current) * smoothing;
 
       progressRef.current = next;
       setProgress(next);
@@ -69,14 +75,12 @@ export default function App() {
     const el = document.getElementById(id);
     if (!el) return false;
 
-    // offset untuk fixed logo + spacing
     const offset = 96;
     const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - offset);
 
     programmaticScrollRef.current = true;
     window.scrollTo({ top, behavior: "smooth" });
 
-    // lepas guard setelah smooth scroll cukup selesai
     window.setTimeout(() => {
       programmaticScrollRef.current = false;
     }, 900);
@@ -108,6 +112,18 @@ export default function App() {
     };
   }, [scrollUnlocked]);
 
+  // detect mobile once
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    const update = () => {
+      isMobileRef.current =
+        mq.matches || "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    };
+    update();
+    mq.addEventListener?.("change", update);
+    return () => mq.removeEventListener?.("change", update);
+  }, []);
+
   // after unlock: only scroll if user clicked nav while locked (pending target exists)
   useEffect(() => {
     if (!scrollUnlocked) return;
@@ -119,7 +135,6 @@ export default function App() {
     let tries = 0;
     const run = () => {
       tries += 1;
-
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           const ok = scrollToId(targetId);
@@ -138,7 +153,11 @@ export default function App() {
     };
 
     const addDelta = (deltaY: number) => {
-      const step = clamp(deltaY / 2600, -0.04, 0.04);
+      // desktop: lebih berat, mobile: lebih “gampang”
+      const divisor = isMobileRef.current ? 1200 : 2600;
+      const cap = isMobileRef.current ? 0.075 : 0.04;
+
+      const step = clamp(deltaY / divisor, -cap, cap);
       targetRef.current = clamp(targetRef.current + step, 0, 1);
       animateToTarget();
     };
@@ -154,7 +173,6 @@ export default function App() {
       setUnlocked(false);
       ensureAtTop();
 
-      // mulai reverse dari posisi sekarang
       targetRef.current = clamp(progressRef.current, 0, 1);
       addDelta(deltaY);
       return true;
@@ -163,38 +181,51 @@ export default function App() {
     const onWheel = (e: WheelEvent) => {
       if (programmaticScrollRef.current) return;
 
-      // unlocked: native scroll normal, kecuali reverse di top
       if (unlockedRef.current) {
         const reversed = maybeStartReverse(e.deltaY);
         if (reversed) e.preventDefault();
         return;
       }
 
-      // locked: kita ambil alih untuk menggerakkan intro
       e.preventDefault();
       addDelta(e.deltaY);
     };
 
+    // MOBILE TOUCH: gunakan total swipe distance biar sekali swipe kecil tetap maju
     let touchStartY = 0;
+    let touchAccum = 0;
+
     const onTouchStart = (e: TouchEvent) => {
       touchStartY = e.touches[0]?.clientY ?? 0;
+      touchAccum = 0;
     };
 
     const onTouchMove = (e: TouchEvent) => {
       if (programmaticScrollRef.current) return;
 
       const y = e.touches[0]?.clientY ?? touchStartY;
-      const deltaY = (touchStartY - y) * 1.4;
+      const dy = touchStartY - y;
       touchStartY = y;
 
+      // akumulasi swipe (lebih stabil dari move per-pixel)
+      touchAccum += dy;
+
       if (unlockedRef.current) {
-        const reversed = maybeStartReverse(deltaY);
+        const reversed = maybeStartReverse(dy);
         if (reversed) e.preventDefault();
         return;
       }
 
+      // locked: prevent native
       e.preventDefault();
-      addDelta(deltaY);
+
+      // Convert swipe px -> deltaY virtual
+      // 220px swipe = progress naik besar (enak buat hp)
+      const virtualDelta = touchAccum * 2.0;
+
+      // apply in chunks supaya smooth dan ga “nendang”
+      addDelta(virtualDelta);
+      touchAccum = 0;
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -300,11 +331,9 @@ export default function App() {
                   onClick={(ev) => {
                     ev.preventDefault();
 
-                    // locked: simpan target, lalu biarkan user scroll untuk menyelesaikan intro
-                    // tapi kalau mau langsung selesai intro ketika klik, aktifkan 2 baris di bawah:
                     if (!unlockedRef.current) {
                       pendingScrollIdRef.current = item.id;
-                      targetRef.current = 1; // finish intro via animasi
+                      targetRef.current = 1;
                       animateToTarget();
                       return;
                     }
@@ -354,7 +383,7 @@ export default function App() {
 
         {!scrollUnlocked ? (
           <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-xs tracking-[0.3em] uppercase text-white/70">
-            Scroll to enter
+            Swipe / scroll to enter
           </div>
         ) : null}
       </section>
