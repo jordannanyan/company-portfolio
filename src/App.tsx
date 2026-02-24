@@ -46,7 +46,7 @@ export default function App() {
       const current = progressRef.current;
       const target = targetRef.current;
 
-      const next = current + (target - current) * 0.15;
+      const next = current + (target - current) * 0.35;
 
       progressRef.current = next;
       setProgress(next);
