@@ -176,15 +176,14 @@ export default function FeatureBlock({
 
   const isLeft = side === "left";
 
-  const heightClassName = "h-[420px] sm:h-[520px] lg:h-[620px]";
+  const heightClassName = "h-[380px] sm:h-[480px] lg:h-[580px]";
 
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
       <div
         className={[
           "grid items-start gap-10 lg:gap-14",
-          "lg:grid-cols-[5fr_7fr]",
-          isLeft ? "" : "lg:[&>*:first-child]:order-2",
+          isLeft ? "lg:grid-cols-[5fr_7fr]" : "lg:grid-cols-[7fr_5fr]",
         ].join(" ")}
       >
         {/* TEXT */}
@@ -193,6 +192,7 @@ export default function FeatureBlock({
             "max-w-2xl",
             "transition-all duration-700 ease-out will-change-transform",
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
+            isLeft ? "" : "lg:order-2",
           ].join(" ")}
         >
           {item.kicker ? (

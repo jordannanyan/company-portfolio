@@ -30,7 +30,7 @@ export default function FeatureTriptych() {
     {
       id: "analisis",
       kicker: "Analisis Data & Statistika",
-      title: "Data yang rapi, hasil yang bisa dipertanggungjawabkan.",
+      title: "Data yang rapi, hasil yang bisa dipercaya.",
       body:
         "Olah data kuantitatif dan kualitatif untuk skripsi, tesis, atau laporan: uji validitas-reliabilitas, regresi, ANOVA, SEM, uji non-parametrik, sampai visualisasi. Dikerjakan dengan SPSS, Excel, MATLAB, Minitab, Python (pandas/numpy), dan R — dipilih sesuai kebutuhan metodologi.",
       imageSrc: WebJoki3,

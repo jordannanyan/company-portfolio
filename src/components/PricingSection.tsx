@@ -89,33 +89,38 @@ export default function PricingSection() {
             </ul>
           </div>
 
-          {/* Perusahaan — dark accent card (secondary color) */}
+          {/* Perusahaan — white card with bold black border (enterprise tier) */}
           <div
             className={[
-              "relative flex flex-col rounded-2xl border border-black bg-black p-7 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.12)]",
+              "relative flex flex-col rounded-2xl border-2 border-black bg-white p-7 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.08)]",
               "transition-all duration-700 ease-out",
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
             ].join(" ")}
             style={{ transitionDelay: inView ? "240ms" : "0ms" }}
           >
-            <p className="text-xs tracking-[0.35em] uppercase text-white/70">
+            {/* Enterprise badge */}
+            <span className="absolute -top-3 left-7 rounded-full bg-black px-3 py-1 text-[10px] tracking-[0.25em] uppercase text-white">
+              Enterprise
+            </span>
+
+            <p className="text-xs tracking-[0.35em] uppercase text-black/55">
               Untuk Perusahaan
             </p>
-            <h3 className="mt-3 font-serif text-3xl tracking-tight text-white">
+            <h3 className="mt-3 font-serif text-3xl tracking-tight text-black">
               ERP &amp; Sistem Bisnis
             </h3>
-            <p className="mt-3 text-sm leading-relaxed text-white/70">
+            <p className="mt-3 text-sm leading-relaxed text-black/70">
               Website, aplikasi mobile, POS, inventory, CRM, dan sistem custom
               untuk operasional perusahaan.
             </p>
 
             <div className="mt-8">
-              <p className="text-xs tracking-[0.25em] uppercase text-white/55">
+              <p className="text-xs tracking-[0.25em] uppercase text-black/55">
                 Mulai dari
               </p>
               <p className="mt-2 font-serif leading-none">
-                <span className="text-6xl tracking-tight text-white">5</span>
-                <span className="ml-1 text-2xl text-white/85">jt</span>
+                <span className="text-6xl tracking-tight text-black">5</span>
+                <span className="ml-1 text-2xl text-black/80">jt</span>
               </p>
             </div>
 
@@ -123,7 +128,7 @@ export default function PricingSection() {
               href="https://wa.me/6282253092438"
               target="_blank"
               rel="noreferrer"
-              className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm text-white transition hover:border-white/60 hover:bg-white/20"
+              className="mt-auto inline-flex w-fit items-center gap-2 rounded-full bg-black px-4 py-2 text-sm text-white transition hover:bg-black/85"
               style={{ marginTop: "2rem" }}
             >
               Diskusi project
