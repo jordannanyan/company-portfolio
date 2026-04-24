@@ -25,12 +25,14 @@ export default function ContactUsSection() {
             </h2>
             <p className="mt-7 text-lg sm:text-xl leading-relaxed text-white/75">
               Cerita dulu soal tugas, skripsi, atau project webmu — konsultasi
-              gratis, harga menyesuaikan scope. Balas cepat lewat WhatsApp.
+              gratis, harga menyesuaikan scope. Balas cepat lewat WhatsApp,
+              portofolio &amp; update bisa dicek di Instagram.
             </p>
           </div>
 
-          {/* Right card — WhatsApp only */}
-          <div className="grid gap-4">
+          {/* Right cards */}
+          <div className="grid gap-4 sm:grid-cols-2">
+            {/* WhatsApp */}
             <a
               href="https://wa.me/6282253092438"
               target="_blank"
@@ -40,12 +42,36 @@ export default function ContactUsSection() {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-xs tracking-[0.35em] uppercase text-white/60">WhatsApp</p>
-                  <p className="mt-3 text-2xl font-semibold text-white">
+                  <p className="mt-3 text-xl font-semibold text-white">
                     +62 822-5309-2438
                   </p>
                   <p className="mt-3 text-sm text-white/70">
                     Chat langsung buat konsultasi &amp; booking pengerjaan.
-                    Biasanya dibalas dalam hari yang sama.
+                  </p>
+                </div>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20 transition-all duration-300 group-hover:border-white/40">
+                  <ArrowUpRightIcon className="h-5 w-5 text-white/90 transition-transform duration-300 group-hover:translate-x-[1px] group-hover:-translate-y-[1px]" />
+                </span>
+              </div>
+
+              <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 [background:radial-gradient(120%_100%_at_50%_0%,rgba(255,255,255,0.10),rgba(255,255,255,0.00))]" />
+            </a>
+
+            {/* Instagram */}
+            <a
+              href="https://instagram.com/webdevpky"
+              target="_blank"
+              rel="noreferrer"
+              className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-6 transition-all duration-300 hover:border-white/35 hover:bg-white/10"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs tracking-[0.35em] uppercase text-white/60">Instagram</p>
+                  <p className="mt-3 text-xl font-semibold text-white">
+                    @webdevpky
+                  </p>
+                  <p className="mt-3 text-sm text-white/70">
+                    DM buat lihat portofolio, testimoni, dan update project.
                   </p>
                 </div>
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/20 transition-all duration-300 group-hover:border-white/40">
@@ -61,7 +87,7 @@ export default function ContactUsSection() {
         {/* Bottom divider */}
         <div className="mt-14 border-t border-white/10" />
         <p className="mt-6 text-xs tracking-[0.25em] uppercase text-white/50">
-          Konsultasi via WhatsApp
+          Konsultasi via WhatsApp &amp; Instagram
         </p>
       </div>
     </section>

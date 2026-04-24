@@ -46,6 +46,16 @@ export default function FooterSection() {
                   WhatsApp · +62 822-5309-2438
                 </a>
               </li>
+              <li>
+                <a
+                  href="https://instagram.com/webdevpky"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  Instagram · @webdevpky
+                </a>
+              </li>
             </ul>
           </div>
         </div>
