@@ -10,8 +10,8 @@ export default function FooterSection() {
           <div>
             <h3 className="font-serif text-3xl tracking-tight">WebDev</h3>
             <p className="mt-4 text-sm text-white/60 max-w-xs leading-relaxed">
-              Jasa pengerjaan tugas, skripsi, KP, PP, dan pengembangan
-              web/mobile. Dikerjakan rapi, tepat waktu, dan lulus sidang.
+              Jasa pengerjaan skripsi, tugas, KP, PP, serta pengembangan web,
+              mobile, dan sistem ERP untuk perusahaan.
             </p>
           </div>
 
@@ -23,6 +23,7 @@ export default function FooterSection() {
             <ul className="mt-5 space-y-3 text-sm text-white/70">
               <li><a href="#top" className="hover:text-white transition-colors">Home</a></li>
               <li><a href="#features" className="hover:text-white transition-colors">Layanan</a></li>
+              <li><a href="#pricing" className="hover:text-white transition-colors">Harga</a></li>
               <li><a href="#stats" className="hover:text-white transition-colors">Track Record</a></li>
               <li><a href="#discover" className="hover:text-white transition-colors">Portofolio</a></li>
               <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>

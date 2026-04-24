@@ -7,6 +7,7 @@ import FooterSection from "./components/FooterSection";
 import TopLogo from "./components/TopLogo";
 import StatsSection from "./components/StatsSection";
 import HeroIllustration from "./components/HeroIllustration";
+import PricingSection from "./components/PricingSection";
 
 /* ----------------------------- utils ----------------------------- */
 function clamp(n: number, min: number, max: number) {
@@ -293,6 +294,7 @@ export default function App() {
   const navItems = [
     { label: "Home", id: "top" },
     { label: "Layanan", id: "features" },
+    { label: "Harga", id: "pricing" },
     { label: "Track Record", id: "stats" },
     { label: "Portofolio", id: "discover" },
     { label: "Contact", id: "contact" },
@@ -381,14 +383,15 @@ export default function App() {
         >
           <div className="max-w-4xl">
             <p className="text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70">
-              WebDev — Jasa Pengerjaan Tugas &amp; Skripsi
+              WebDev — Skripsi · Tugas · Web &amp; Sistem Bisnis
             </p>
             <h1 className="mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
               Tugasmu, kami yang selesaikan.
             </h1>
             <p className="mt-6 text-base sm:text-lg text-white/75">
-              Skripsi, KP, PP, dan tugas kuliah — dikerjakan rapi, tepat waktu,
-              dan terbukti meluluskan puluhan mahasiswa.
+              Skripsi, KP, PP, tugas kuliah, sampai sistem ERP perusahaan —
+              dikerjakan rapi, tepat waktu, dan sudah dipercaya puluhan
+              mahasiswa &amp; klien bisnis.
             </p>
           </div>
         </div>
@@ -404,6 +407,10 @@ export default function App() {
       <main className="relative z-10 bg-black">
         <section id="features" className="scroll-mt-24">
           <FeatureTriptych />
+        </section>
+
+        <section id="pricing" className="scroll-mt-24">
+          <PricingSection />
         </section>
 
         <section id="stats" className="scroll-mt-24">

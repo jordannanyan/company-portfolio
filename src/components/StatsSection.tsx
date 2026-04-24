@@ -80,7 +80,7 @@ export default function StatsSection() {
     {
       value: "40",
       numeric: 40,
-      label: "Proyek Perancangan",
+      label: "Program Profesional",
       caption: "40 PP dikerjakan sesuai format dan deadline kampus.",
     },
   ];

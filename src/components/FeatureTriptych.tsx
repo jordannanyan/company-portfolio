@@ -23,7 +23,7 @@ export default function FeatureTriptych() {
       kicker: "Tugas • KP • PP",
       title: "Tugas kuliah, selesai tepat waktu.",
       body:
-        "30+ Kerja Praktik, 40+ Proyek Perancangan, dan banyak tugas harian sudah kami rampungkan. Laporan, analisis, presentasi — dikerjakan rapi sesuai format kampus dan deadline yang realistis.",
+        "30+ Kerja Praktik, 40+ Program Profesional, dan banyak tugas harian sudah kami rampungkan. Laporan, analisis, presentasi — dikerjakan rapi sesuai format kampus dan deadline yang realistis.",
       imageSrc: WebJoki2,
       imageAlt: "Tugas",
     },
@@ -38,12 +38,12 @@ export default function FeatureTriptych() {
     },
     {
       id: "webdev",
-      kicker: "Web & Mobile Development",
-      title: "Bukan cuma jasa tugas.",
+      kicker: "Web · Mobile · ERP",
+      title: "Dari website kampus sampai sistem perusahaan.",
       body:
-        "Kami juga membangun produk nyata. Pernah mengerjakan website untuk OJK, Pemira UPR, dan Fairventure Agroforestry (web + mobile). Kalau kamu butuh skripsi berbasis sistem/aplikasi, kami bisa bantu sekaligus buildnya.",
+        "Kami juga membangun produk nyata. Pernah mengerjakan website untuk OJK, Pemira UPR, dan Fairventure Agroforestry (web + mobile). Untuk perusahaan, kami kembangkan sistem ERP, POS, inventory, CRM, dan aplikasi bisnis custom — mulai dari Rp 5 juta. Butuh skripsi berbasis sistem/aplikasi? Bisa sekaligus kami build.",
       imageSrc: FairventureWeb,
-      imageAlt: "Web & Mobile",
+      imageAlt: "Web, Mobile & ERP",
     },
   ];
 
