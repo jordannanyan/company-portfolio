@@ -21,7 +21,7 @@ export default function PricingSection() {
   ];
 
   return (
-    <section ref={ref} className="bg-black">
+    <section ref={ref} className="bg-white">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
         {/* Header */}
         <div
@@ -30,13 +30,13 @@ export default function PricingSection() {
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
           ].join(" ")}
         >
-          <p className="text-sm tracking-[0.45em] uppercase text-white/60">
+          <p className="text-sm tracking-[0.45em] uppercase text-black/55">
             Harga
           </p>
-          <h2 className="mt-5 font-serif text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
+          <h2 className="mt-5 font-serif text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-black">
             Transparan, menyesuaikan scope.
           </h2>
-          <p className="mt-6 text-lg leading-relaxed text-white/75">
+          <p className="mt-6 text-lg leading-relaxed text-black/70">
             Starting point di bawah. Harga final menyesuaikan kompleksitas,
             deadline, dan jumlah revisi — semua dikonfirmasi dulu lewat WA
             sebelum dikerjakan.
@@ -45,42 +45,42 @@ export default function PricingSection() {
 
         {/* Grid */}
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {/* Mahasiswa — takes 2 columns */}
+          {/* Mahasiswa — light card, takes 2 columns */}
           <div
             className={[
-              "rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-8 lg:col-span-2",
+              "rounded-2xl border border-black/10 bg-white p-7 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.06)] lg:col-span-2",
               "transition-all duration-700 ease-out",
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
             ].join(" ")}
             style={{ transitionDelay: inView ? "120ms" : "0ms" }}
           >
-            <p className="text-xs tracking-[0.35em] uppercase text-white/60">
+            <p className="text-xs tracking-[0.35em] uppercase text-black/55">
               Untuk Mahasiswa
             </p>
-            <h3 className="mt-3 font-serif text-3xl tracking-tight">
+            <h3 className="mt-3 font-serif text-3xl tracking-tight text-black">
               Skripsi · Tugas · KP · PP
             </h3>
 
-            <ul className="mt-7 divide-y divide-white/10">
+            <ul className="mt-7 divide-y divide-black/10">
               {mahasiswa.map((t) => (
                 <li
                   key={t.name}
                   className="flex items-baseline justify-between gap-4 py-4"
                 >
                   <div>
-                    <p className="text-base font-semibold text-white">
+                    <p className="text-base font-semibold text-black">
                       {t.name}
                     </p>
                     {t.note ? (
-                      <p className="mt-1 text-sm text-white/55">{t.note}</p>
+                      <p className="mt-1 text-sm text-black/55">{t.note}</p>
                     ) : null}
                   </div>
-                  <p className="whitespace-nowrap text-sm text-white/55">
+                  <p className="whitespace-nowrap text-sm text-black/55">
                     mulai{" "}
-                    <span className="font-serif text-3xl text-white">
+                    <span className="font-serif text-3xl text-black">
                       {t.price}
                     </span>
-                    <span className="ml-0.5 text-sm text-white/80">
+                    <span className="ml-0.5 text-sm text-black/80">
                       {t.unit}
                     </span>
                   </p>
@@ -89,19 +89,19 @@ export default function PricingSection() {
             </ul>
           </div>
 
-          {/* Perusahaan — highlighted */}
+          {/* Perusahaan — dark accent card (secondary color) */}
           <div
             className={[
-              "relative flex flex-col rounded-2xl border border-white/25 bg-gradient-to-br from-white/[0.08] to-white/[0.02] p-7 sm:p-8",
+              "relative flex flex-col rounded-2xl border border-black bg-black p-7 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.12)]",
               "transition-all duration-700 ease-out",
               inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
             ].join(" ")}
             style={{ transitionDelay: inView ? "240ms" : "0ms" }}
           >
-            <p className="text-xs tracking-[0.35em] uppercase text-white/75">
+            <p className="text-xs tracking-[0.35em] uppercase text-white/70">
               Untuk Perusahaan
             </p>
-            <h3 className="mt-3 font-serif text-3xl tracking-tight">
+            <h3 className="mt-3 font-serif text-3xl tracking-tight text-white">
               ERP &amp; Sistem Bisnis
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-white/70">
@@ -123,7 +123,7 @@ export default function PricingSection() {
               href="https://wa.me/6282253092438"
               target="_blank"
               rel="noreferrer"
-              className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2 text-sm text-white/90 transition hover:border-white/60 hover:bg-white/10"
+              className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm text-white transition hover:border-white/60 hover:bg-white/20"
               style={{ marginTop: "2rem" }}
             >
               Diskusi project
@@ -134,7 +134,7 @@ export default function PricingSection() {
 
         <p
           className={[
-            "mt-10 text-sm text-white/50 transition-all duration-700 ease-out",
+            "mt-10 text-sm text-black/50 transition-all duration-700 ease-out",
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
           ].join(" ")}
           style={{ transitionDelay: inView ? "360ms" : "0ms" }}

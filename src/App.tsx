@@ -280,7 +280,6 @@ export default function App() {
   const inset = useMemo(() => Math.round(lerp(56, 0, e)), [e]);
   const corner = useMemo(() => Math.round(lerp(28, 0, e)), [e]);
   const shadowOpacity = useMemo(() => lerp(0.35, 0, e), [e]);
-  const overlayOpacity = useMemo(() => lerp(0.45, 0.2, e), [e]);
 
   // NAVBAR exit
   const navOpacity = useMemo(() => lerp(1, 0, clamp((e - 0.1) / 0.55, 0, 1)), [e]);
@@ -301,22 +300,22 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-black">
       {/* Logo fixed stays */}
       <div className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
         <TopLogo />
       </div>
 
       {/* HEADER BLOCK */}
-      <header className="relative z-10 bg-black pt-4">
+      <header className="relative z-10 bg-white pt-4">
         <div className="mx-auto max-w-6xl px-4">
           <div className="relative flex h-16 items-center">
-            <div className="absolute left-1/2 -translate-x-1/2 text-white/0 select-none">LOGO</div>
+            <div className="absolute left-1/2 -translate-x-1/2 text-black/0 select-none">LOGO</div>
           </div>
         </div>
 
         {/* Navbar area: height collapses to 0 */}
-        <div className="border-t border-white/10 overflow-hidden">
+        <div className="border-t border-black/10 overflow-hidden">
           <div
             className="mx-auto max-w-6xl px-4"
             style={{
@@ -326,12 +325,12 @@ export default function App() {
               pointerEvents: navOpacity < 0.1 ? "none" : "auto",
             }}
           >
-            <nav className="flex h-full items-center justify-between text-sm tracking-[0.25em] uppercase text-white/90">
+            <nav className="flex h-full items-center justify-between text-sm tracking-[0.25em] uppercase text-black/75">
               {navItems.map((item) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className="hover:text-white"
+                  className="hover:text-black"
                   onClick={(ev) => {
                     ev.preventDefault();
 
@@ -352,12 +351,12 @@ export default function App() {
           </div>
         </div>
 
-        <div className="border-t border-white/10" />
+        <div className="border-t border-black/10" />
       </header>
 
       {/* HERO */}
-      <section id="top" className="relative h-[100vh] w-full bg-black overflow-hidden">
-        <div className="absolute inset-0 bg-black" />
+      <section id="top" className="relative h-[100vh] w-full bg-white overflow-hidden">
+        <div className="absolute inset-0 bg-white" />
 
         <div
           className="absolute overflow-hidden will-change-[inset,border-radius]"
@@ -367,11 +366,10 @@ export default function App() {
             bottom: inset,
             left: inset,
             borderRadius: corner,
-            boxShadow: `0 30px 80px rgba(0,0,0,${shadowOpacity})`,
+            boxShadow: `0 30px 80px rgba(0,0,0,${shadowOpacity * 0.5})`,
           }}
         >
           <HeroIllustration />
-          <div className="absolute inset-0 bg-black pointer-events-none" style={{ opacity: overlayOpacity * 0.4 }} />
         </div>
 
         <div
@@ -382,13 +380,13 @@ export default function App() {
           }}
         >
           <div className="max-w-4xl">
-            <p className="text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70">
+            <p className="text-xs sm:text-sm tracking-[0.45em] uppercase text-black/60">
               WebDev — Skripsi · Tugas · Web &amp; Sistem Bisnis
             </p>
-            <h1 className="mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
+            <h1 className="mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight text-black">
               Tugasmu, kami yang selesaikan.
             </h1>
-            <p className="mt-6 text-base sm:text-lg text-white/75">
+            <p className="mt-6 text-base sm:text-lg text-black/70">
               Skripsi, KP, PP, tugas kuliah, sampai sistem ERP perusahaan —
               dikerjakan rapi, tepat waktu, dan sudah dipercaya puluhan
               mahasiswa &amp; klien bisnis.
@@ -397,14 +395,14 @@ export default function App() {
         </div>
 
         {!scrollUnlocked ? (
-          <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-xs tracking-[0.3em] uppercase text-white/70">
+          <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-xs tracking-[0.3em] uppercase text-black/60">
             Swipe / scroll untuk masuk
           </div>
         ) : null}
       </section>
 
       {/* CONTENT */}
-      <main className="relative z-10 bg-black">
+      <main className="relative z-10 bg-white">
         <section id="features" className="scroll-mt-24">
           <FeatureTriptych />
         </section>

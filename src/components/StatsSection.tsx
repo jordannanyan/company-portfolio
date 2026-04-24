@@ -88,7 +88,7 @@ export default function StatsSection() {
   const majors = ["Teknik", "Ekonomi & Bisnis", "FKIP"];
 
   return (
-    <section ref={ref} className="relative bg-black">
+    <section ref={ref} className="relative bg-white">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:py-28">
         {/* Header */}
         <div
@@ -97,13 +97,13 @@ export default function StatsSection() {
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
           ].join(" ")}
         >
-          <p className="text-sm tracking-[0.45em] uppercase text-white/60">
+          <p className="text-sm tracking-[0.45em] uppercase text-black/55">
             Track Record
           </p>
-          <h2 className="mt-5 font-serif text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
+          <h2 className="mt-5 font-serif text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight text-black">
             Angka yang bicara sendiri.
           </h2>
-          <p className="mt-6 text-lg sm:text-xl leading-relaxed text-white/75">
+          <p className="mt-6 text-lg sm:text-xl leading-relaxed text-black/70">
             Pengalaman lintas jurusan, hasil yang terbukti, dan ratusan revisi
             yang sudah dilalui bareng mahasiswa-mahasiswa ini.
           </p>
@@ -120,18 +120,18 @@ export default function StatsSection() {
           {majors.map((m) => (
             <span
               key={m}
-              className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm text-white/85"
+              className="rounded-full border border-black/20 bg-white px-4 py-2 text-sm text-black/80"
             >
               {m}
             </span>
           ))}
-          <span className="rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-sm text-white/50">
+          <span className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-black/45">
             dan lainnya
           </span>
         </div>
 
-        {/* Stats grid */}
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Stats grid (black surface — bold secondary block) */}
+        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-black/15 bg-black/15 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s, idx) => (
             <div
               key={s.label}
@@ -153,10 +153,10 @@ export default function StatsSection() {
                   s.value
                 )}
               </p>
-              <p className="mt-5 text-sm tracking-[0.3em] uppercase text-white/70">
+              <p className="mt-5 text-sm tracking-[0.3em] uppercase text-white/75">
                 {s.label}
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-white/55">
+              <p className="mt-3 text-sm leading-relaxed text-white/60">
                 {s.caption}
               </p>
             </div>
@@ -166,7 +166,7 @@ export default function StatsSection() {
         {/* Footnote */}
         <p
           className={[
-            "mt-10 text-sm text-white/55 transition-all duration-700 ease-out",
+            "mt-10 text-sm text-black/55 transition-all duration-700 ease-out",
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6",
           ].join(" ")}
           style={{ transitionDelay: inView ? "540ms" : "0ms" }}

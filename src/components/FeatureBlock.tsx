@@ -176,14 +176,14 @@ export default function FeatureBlock({
 
   const isLeft = side === "left";
 
-  const heightClassName = "h-[380px] sm:h-[480px] lg:h-[580px]";
+  const heightClassName = "h-[420px] sm:h-[520px] lg:h-[620px]";
 
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-4 py-16 sm:py-24">
       <div
         className={[
-          "grid items-start gap-10 lg:gap-16",
-          "lg:grid-cols-2",
+          "grid items-start gap-10 lg:gap-14",
+          "lg:grid-cols-[5fr_7fr]",
           isLeft ? "" : "lg:[&>*:first-child]:order-2",
         ].join(" ")}
       >
@@ -196,16 +196,16 @@ export default function FeatureBlock({
           ].join(" ")}
         >
           {item.kicker ? (
-            <p className="text-sm tracking-[0.45em] uppercase text-white/60">
+            <p className="text-sm tracking-[0.45em] uppercase text-black/55">
               {item.kicker}
             </p>
           ) : null}
 
-          <h3 className="mt-6 font-serif text-6xl sm:text-7xl lg:text-8xl xl:text-[5.5rem] leading-[0.95] tracking-tight">
+          <h3 className="mt-6 font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-[4.75rem] leading-[0.95] tracking-tight text-black">
             {item.title}
           </h3>
 
-          <p className="mt-8 text-lg sm:text-xl leading-relaxed text-white/75 max-w-xl">
+          <p className="mt-8 text-lg sm:text-xl leading-relaxed text-black/70 max-w-xl">
             {item.body}
           </p>
         </div>
@@ -213,14 +213,12 @@ export default function FeatureBlock({
         {/* IMAGE / CAROUSEL */}
         <div
           className={[
-            "relative overflow-hidden rounded-2xl border border-white/10 bg-white/5",
+            "relative overflow-hidden rounded-2xl border border-black/10 bg-black/5 shadow-[0_20px_60px_rgba(0,0,0,0.08)]",
             "transition-all duration-700 ease-out will-change-transform",
             inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12",
           ].join(" ")}
           style={{ transitionDelay: inView ? "120ms" : "0ms" }}
         >
-          <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-black/0 via-black/0 to-black/35" />
-
           {carouselImages && carouselImages.length > 0 ? (
             <HeroCarousel
               images={carouselImages}

@@ -68,7 +68,7 @@ export default function FeatureTriptych() {
   ];
 
   return (
-    <div className="bg-black">
+    <div className="bg-white">
       <FeatureBlock item={items[0]} side="left" carouselImages={carouselImages} />
       <FeatureBlock item={items[1]} side="right" carouselImages={carouselImages} />
       <FeatureBlock item={items[2]} side="left" carouselImages={carouselImages} />
@@ -76,11 +76,11 @@ export default function FeatureTriptych() {
 
       {/* Tools & software strip */}
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:pb-24">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
-          <p className="text-xs tracking-[0.35em] uppercase text-white/60">
+        <div className="rounded-2xl border border-black/10 bg-black/[0.03] p-6 sm:p-8">
+          <p className="text-xs tracking-[0.35em] uppercase text-black/55">
             Tools &amp; Software
           </p>
-          <p className="mt-3 text-base text-white/75 max-w-2xl">
+          <p className="mt-3 text-base text-black/70 max-w-2xl">
             Software yang kami pakai untuk analisis, pengolahan data, dan
             penulisan — dipilih menyesuaikan metodologi dan kebutuhan dosen.
           </p>
@@ -89,12 +89,12 @@ export default function FeatureTriptych() {
             {tools.map((t) => (
               <span
                 key={t}
-                className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/85"
+                className="rounded-full border border-black/15 bg-white px-4 py-2 text-sm text-black/80"
               >
                 {t}
               </span>
             ))}
-            <span className="rounded-full border border-white/10 bg-white/[0.02] px-4 py-2 text-sm text-white/50">
+            <span className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm text-black/45">
               dan lainnya
             </span>
           </div>
