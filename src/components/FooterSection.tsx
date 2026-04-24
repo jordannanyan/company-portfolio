@@ -8,20 +8,23 @@ export default function FooterSection() {
         <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}
           <div>
-            <h3 className="font-serif text-3xl tracking-tight">LOGO</h3>
+            <h3 className="font-serif text-3xl tracking-tight">WebDev</h3>
             <p className="mt-4 text-sm text-white/60 max-w-xs leading-relaxed">
-              Crafted with precision. Designed with intention.
+              Jasa pengerjaan tugas, skripsi, KP, PP, dan pengembangan
+              web/mobile. Dikerjakan rapi, tepat waktu, dan lulus sidang.
             </p>
           </div>
 
           {/* Navigation */}
           <div>
             <p className="text-xs tracking-[0.35em] uppercase text-white/50">
-              Navigation
+              Navigasi
             </p>
             <ul className="mt-5 space-y-3 text-sm text-white/70">
-              <li><a href="#content" className="hover:text-white transition-colors">Home</a></li>
-              <li><a href="#discover" className="hover:text-white transition-colors">Discover</a></li>
+              <li><a href="#top" className="hover:text-white transition-colors">Home</a></li>
+              <li><a href="#features" className="hover:text-white transition-colors">Layanan</a></li>
+              <li><a href="#stats" className="hover:text-white transition-colors">Track Record</a></li>
+              <li><a href="#discover" className="hover:text-white transition-colors">Portofolio</a></li>
               <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -33,13 +36,13 @@ export default function FooterSection() {
             </p>
             <ul className="mt-5 space-y-3 text-sm text-white/70">
               <li>
-                <a href="https://instagram.com/your_username" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href="https://wa.me/6281234567890" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">
-                  WhatsApp
+                <a
+                  href="https://wa.me/6282253092438"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors"
+                >
+                  WhatsApp · +62 822-5309-2438
                 </a>
               </li>
             </ul>
@@ -48,8 +51,8 @@ export default function FooterSection() {
 
         {/* Bottom Line */}
         <div className="mt-10 border-t border-white/10 pt-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-white/50">
-          <p>© {year} Your Brand. All rights reserved.</p>
-          <p>Designed & Developed with precision.</p>
+          <p>© {year} WebDev. All rights reserved.</p>
+          <p>Skripsi · Tugas · Web &amp; Mobile Development.</p>
         </div>
       </div>
     </footer>

@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import HeroImg from "./assets/hero.jpg";
 
 import FeatureTriptych from "./components/FeatureTriptych";
 import DiscoverMoreSection from "./components/DiscoverMoreSection";
 import ContactUsSection from "./components/ContactUsSection";
 import FooterSection from "./components/FooterSection";
 import TopLogo from "./components/TopLogo";
+import StatsSection from "./components/StatsSection";
+import HeroIllustration from "./components/HeroIllustration";
 
 /* ----------------------------- utils ----------------------------- */
 function clamp(n: number, min: number, max: number) {
@@ -291,8 +292,9 @@ export default function App() {
 
   const navItems = [
     { label: "Home", id: "top" },
-    { label: "Features", id: "features" },
-    { label: "Discover", id: "discover" },
+    { label: "Layanan", id: "features" },
+    { label: "Track Record", id: "stats" },
+    { label: "Portofolio", id: "discover" },
     { label: "Contact", id: "contact" },
   ];
 
@@ -366,24 +368,34 @@ export default function App() {
             boxShadow: `0 30px 80px rgba(0,0,0,${shadowOpacity})`,
           }}
         >
-          <img src={HeroImg} alt="Hero" className="h-full w-full object-cover" draggable={false} />
-          <div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-transparent to-black/70" />
+          <HeroIllustration />
+          <div className="absolute inset-0 bg-black pointer-events-none" style={{ opacity: overlayOpacity * 0.4 }} />
         </div>
 
         <div
-          className="relative z-10 grid h-full place-items-center px-6 text-center"
+          className="relative z-10 flex h-full flex-col items-center px-6 pt-[14vh] text-center sm:pt-[16vh]"
           style={{
             opacity: titleOpacity,
             transform: `translateY(${titleTranslateY}px)`,
           }}
         >
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl tracking-tight">The new S-Class Saloon.</h1>
+          <div className="max-w-4xl">
+            <p className="text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70">
+              WebDev — Jasa Pengerjaan Tugas &amp; Skripsi
+            </p>
+            <h1 className="mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
+              Tugasmu, kami yang selesaikan.
+            </h1>
+            <p className="mt-6 text-base sm:text-lg text-white/75">
+              Skripsi, KP, PP, dan tugas kuliah — dikerjakan rapi, tepat waktu,
+              dan terbukti meluluskan puluhan mahasiswa.
+            </p>
+          </div>
         </div>
 
         {!scrollUnlocked ? (
           <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-xs tracking-[0.3em] uppercase text-white/70">
-            Swipe / scroll to enter
+            Swipe / scroll untuk masuk
           </div>
         ) : null}
       </section>
@@ -392,6 +404,10 @@ export default function App() {
       <main className="relative z-10 bg-black">
         <section id="features" className="scroll-mt-24">
           <FeatureTriptych />
+        </section>
+
+        <section id="stats" className="scroll-mt-24">
+          <StatsSection />
         </section>
 
         <section id="discover" className="scroll-mt-24">
