@@ -24,11 +24,13 @@ export default function App() {
   // progress 0..1, reversible
   const [progress, setProgress] = useState(0);
   const [scrollUnlocked, setScrollUnlocked] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const progressRef = useRef(0);
   const unlockedRef = useRef(false);
   const targetRef = useRef(0);
   const rafRef = useRef<number | null>(null);
+  const mobileOpenRef = useRef(false);
 
   // programmatic scroll guard + pending nav target
   const programmaticScrollRef = useRef(false);
@@ -41,6 +43,29 @@ export default function App() {
     unlockedRef.current = v;
     setScrollUnlocked(v);
   };
+
+  // keep ref in sync so handlers in useEffect see latest value
+  useEffect(() => {
+    mobileOpenRef.current = mobileOpen;
+  }, [mobileOpen]);
+
+  // body scroll lock + Esc to close mobile menu
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onEsc);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener("keydown", onEsc);
+    };
+  }, [mobileOpen]);
 
   // smoother (lebih enak di HP, tidak lompat)
   const animateToTarget = () => {
@@ -182,6 +207,7 @@ export default function App() {
 
     const onWheel = (e: WheelEvent) => {
       if (programmaticScrollRef.current) return;
+      if (mobileOpenRef.current) return;
 
       if (unlockedRef.current) {
         const reversed = maybeStartReverse(e.deltaY);
@@ -204,6 +230,7 @@ export default function App() {
 
     const onTouchMove = (e: TouchEvent) => {
       if (programmaticScrollRef.current) return;
+      if (mobileOpenRef.current) return;
 
       const y = e.touches[0]?.clientY ?? touchStartY;
       const dy = touchStartY - y;
@@ -232,6 +259,7 @@ export default function App() {
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (programmaticScrollRef.current) return;
+      if (mobileOpenRef.current) return;
 
       const keys = ["ArrowDown", "ArrowUp", "PageDown", "PageUp", " ", "Home", "End"];
       if (!keys.includes(e.key)) return;
@@ -300,12 +328,48 @@ export default function App() {
     { label: "Contact", id: "contact" },
   ];
 
+  const handleNavClick = (id: string) => {
+    setMobileOpen(false);
+
+    if (!unlockedRef.current) {
+      pendingScrollIdRef.current = id;
+      targetRef.current = 1;
+      animateToTarget();
+      return;
+    }
+
+    scrollToId(id);
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Logo fixed stays */}
       <div className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
         <TopLogo />
       </div>
+
+      {/* Mobile hamburger (fixed top-right, hidden on lg+) */}
+      <button
+        type="button"
+        onClick={() => setMobileOpen(true)}
+        aria-label="Buka menu navigasi"
+        aria-expanded={mobileOpen}
+        className="fixed top-4 right-4 z-50 grid h-12 w-12 place-items-center rounded-full border border-white/35 bg-black/40 text-white backdrop-blur transition hover:bg-black/60 lg:hidden"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          className="h-5 w-5"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+      </button>
 
       {/* HEADER BLOCK */}
       <header className="relative z-10 bg-black pt-4">
@@ -315,8 +379,8 @@ export default function App() {
           </div>
         </div>
 
-        {/* Navbar area: height collapses to 0 */}
-        <div className="border-t border-white/10 overflow-hidden">
+        {/* Navbar area: height collapses to 0 (desktop only — mobile uses hamburger overlay) */}
+        <div className="hidden border-t border-white/10 overflow-hidden lg:block">
           <div
             className="mx-auto max-w-6xl px-4"
             style={{
@@ -334,15 +398,7 @@ export default function App() {
                   className="hover:text-white"
                   onClick={(ev) => {
                     ev.preventDefault();
-
-                    if (!unlockedRef.current) {
-                      pendingScrollIdRef.current = item.id;
-                      targetRef.current = 1;
-                      animateToTarget();
-                      return;
-                    }
-
-                    scrollToId(item.id);
+                    handleNavClick(item.id);
                   }}
                 >
                   {item.label}
@@ -354,6 +410,72 @@ export default function App() {
 
         <div className="border-t border-white/10" />
       </header>
+
+      {/* MOBILE MENU OVERLAY */}
+      <div
+        className={[
+          "fixed inset-0 z-[60] flex flex-col bg-black/95 backdrop-blur-xl transition-opacity duration-300 lg:hidden",
+          mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
+        ].join(" ")}
+        aria-hidden={!mobileOpen}
+      >
+        {/* close button row */}
+        <div className="flex items-center justify-end p-4">
+          <button
+            type="button"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Tutup menu"
+            className="grid h-12 w-12 place-items-center rounded-full border border-white/35 bg-black/40 text-white backdrop-blur transition hover:bg-black/60"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        {/* nav items */}
+        <nav className="flex flex-1 flex-col items-center justify-center gap-7 px-6 text-base tracking-[0.3em] uppercase text-white/85">
+          {navItems.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="transition hover:text-white"
+              onClick={(ev) => {
+                ev.preventDefault();
+                handleNavClick(item.id);
+              }}
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* contact CTA */}
+        <div className="px-6 pb-10 pt-4 text-center">
+          <a
+            href="https://wa.me/6282253092438"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-5 py-3 text-sm tracking-wider text-white transition hover:border-white/55 hover:bg-white/10"
+            onClick={() => setMobileOpen(false)}
+          >
+            Chat WhatsApp
+            <span aria-hidden="true">→</span>
+          </a>
+          <p className="mt-3 text-xs tracking-[0.25em] uppercase text-white/45">
+            +62 822-5309-2438
+          </p>
+        </div>
+      </div>
 
       {/* HERO */}
       <section id="top" className="relative h-[100vh] w-full bg-black overflow-hidden">
