@@ -45,7 +45,7 @@ export default function HeroIllustration() {
           <span className="h-3 w-3 rounded-full bg-yellow-400/80" />
           <span className="h-3 w-3 rounded-full bg-green-400/80" />
           <span className="ml-4 flex-1 truncate rounded-md bg-white/8 px-3 py-1 text-[11px] tracking-wider text-white/50 sm:text-xs">
-            https://webdev.id
+            https://webdevpky.site
           </span>
         </div>
 
