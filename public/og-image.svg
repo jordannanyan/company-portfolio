@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="65%" r="65%">
+      <stop offset="0%" stop-color="#1a2050" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="100%" cy="0%" r="50%">
+      <stop offset="0%" stop-color="#5b3a8a" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M 44 0 L 0 0 0 44" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#000000"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <rect width="1200" height="630" fill="url(#glow2)"/>
+
+  <!-- Logo + brand wordmark -->
+  <g transform="translate(80, 76)">
+    <rect width="56" height="56" rx="14" fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+    <rect x="16" y="16" width="24" height="24" rx="6" fill="#ffffff"/>
+    <text x="28" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="16" fill="#000000">W</text>
+  </g>
+  <text x="156" y="113" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="22" letter-spacing="6" fill="#ffffff" font-weight="600">WEBDEV</text>
+
+  <!-- Eyebrow / kicker -->
+  <text x="80" y="225" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="18" letter-spacing="6" fill="rgba(255,255,255,0.65)" font-weight="500">SKRIPSI · TUGAS · WEB · MOBILE · ERP</text>
+
+  <!-- Headline -->
+  <text x="80" y="335" font-family="Georgia, 'Times New Roman', 'Source Serif Pro', serif" font-size="84" fill="#ffffff" font-weight="400">Tugasmu, kami yang</text>
+  <text x="80" y="425" font-family="Georgia, 'Times New Roman', 'Source Serif Pro', serif" font-size="84" fill="#ffffff" font-weight="400">selesaikan.</text>
+
+  <!-- Sub copy -->
+  <text x="80" y="495" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="22" fill="rgba(255,255,255,0.7)">20+ mahasiswa lulus  ·  5+ cumlaude  ·  30 KP  ·  40 PP</text>
+
+  <!-- Bottom contact strip -->
+  <line x1="80" y1="555" x2="1120" y2="555" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+  <text x="80" y="590" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="18" letter-spacing="2" fill="rgba(255,255,255,0.65)">wa.me/6282253092438</text>
+  <text x="1120" y="590" text-anchor="end" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="18" letter-spacing="2" fill="rgba(255,255,255,0.65)">@webdevpky</text>
+</svg>
