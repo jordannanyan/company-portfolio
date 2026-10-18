@@ -505,7 +505,7 @@ export default function App() {
         >
           <div className="max-w-4xl">
             <p className="text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70">
-              WebDev — Skripsi · Tugas · Web &amp; Sistem Bisnis
+              Bantu Tugas — Skripsi · Tugas · Web &amp; Sistem Bisnis
             </p>
             <h1 className="mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
               Tugasmu, kami yang selesaikan.
