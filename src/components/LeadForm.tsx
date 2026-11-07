@@ -7,6 +7,7 @@ const SERVICES = [
   "Tugas Kuliah",
   "Analisis Data",
   "Web / Mobile / ERP",
+  "SEO & Optimasi Website",
   "Lainnya",
 ] as const;
 

@@ -515,13 +515,13 @@ export default function App() {
         >
           <div className="max-w-4xl">
             <p className="intro-rise text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70" style={d(250)}>
-              Bantu Tugas — Skripsi · Tugas · Web &amp; Sistem Bisnis
+              Bantu Tugas — Skripsi · Tugas · Web, SEO &amp; Sistem Bisnis
             </p>
             <h1 style={d(360)} className="intro-rise mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
               Tugasmu, kami yang selesaikan.
             </h1>
             <p className="intro-rise mt-6 text-base sm:text-lg text-white/75" style={d(500)}>
-              Skripsi, KP, PP, tugas kuliah, sampai sistem ERP perusahaan —
+              Skripsi, KP, PP, tugas kuliah, sampai website, SEO, dan sistem ERP perusahaan —
               dikerjakan rapi, tepat waktu, dan sudah dipercaya puluhan
               mahasiswa &amp; klien bisnis.
             </p>

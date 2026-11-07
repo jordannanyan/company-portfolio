@@ -110,8 +110,8 @@ export default function PricingSection() {
               ERP &amp; Sistem Bisnis
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-white/70">
-              Website, aplikasi mobile, POS, inventory, CRM, dan sistem custom
-              untuk operasional perusahaan.
+              Website + SEO, aplikasi mobile, POS, inventory, CRM, dan sistem
+              custom untuk operasional perusahaan.
             </p>
 
             <div className="mt-8">

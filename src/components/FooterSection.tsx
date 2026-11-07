@@ -16,7 +16,7 @@ export default function FooterSection() {
             </div>
             <p className="mt-4 text-sm text-white/60 max-w-xs leading-relaxed">
               Jasa pengerjaan skripsi, tugas, KP, PP, serta pengembangan web,
-              mobile, dan sistem ERP untuk perusahaan.
+              SEO, mobile, dan sistem ERP untuk perusahaan.
             </p>
           </div>
 
@@ -68,7 +68,7 @@ export default function FooterSection() {
         {/* Bottom Line */}
         <div className="mt-10 border-t border-white/10 pt-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-white/50">
           <p>© {year} Bantu Tugas. All rights reserved.</p>
-          <p>Skripsi · Tugas · Web, Mobile &amp; Sistem ERP.</p>
+          <p>Skripsi · Tugas · Web, SEO, Mobile &amp; Sistem ERP.</p>
         </div>
       </div>
     </footer>

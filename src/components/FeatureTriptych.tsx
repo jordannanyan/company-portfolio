@@ -38,12 +38,12 @@ export default function FeatureTriptych() {
     },
     {
       id: "webdev",
-      kicker: "Web · Mobile · ERP",
+      kicker: "Web · SEO · Mobile · ERP",
       title: "Dari website kampus sampai sistem perusahaan.",
       body:
-        "Kami juga membangun produk nyata. Pernah mengerjakan website untuk OJK, Pemira UPR, dan Fairventure Agroforestry (web + mobile). Untuk perusahaan, kami kembangkan sistem ERP, POS, inventory, CRM, dan aplikasi bisnis custom — mulai dari Rp 5 juta. Butuh skripsi berbasis sistem/aplikasi? Bisa sekaligus kami build.",
+        "Kami juga membangun produk nyata. Pernah mengerjakan website untuk OJK, Pemira UPR, dan Fairventure Agroforestry (web + mobile). Untuk perusahaan, kami kembangkan sistem ERP, POS, inventory, CRM, dan aplikasi bisnis custom — mulai dari Rp 5 juta. Website juga kami optimasi SEO — riset keyword, on-page, kecepatan, dan Google Search Console — supaya bisnismu mudah ditemukan di Google. Butuh skripsi berbasis sistem/aplikasi? Bisa sekaligus kami build.",
       imageSrc: FairventureWeb,
-      imageAlt: "Web, Mobile & ERP",
+      imageAlt: "Web, SEO, Mobile & ERP",
     },
   ];
 
