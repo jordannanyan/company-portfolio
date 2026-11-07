@@ -22,8 +22,7 @@
   <!-- Logo + brand wordmark -->
   <g transform="translate(80, 76)">
     <rect width="56" height="56" rx="14" fill="#000000" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
-    <rect x="16" y="16" width="24" height="24" rx="6" fill="#ffffff"/>
-    <text x="28" y="34" text-anchor="middle" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="16" fill="#000000">B</text>
+    <svg x="6" y="6" width="44" height="44" viewBox="76 80 360 360"><g transform="translate(14 2)"><path d="M174 140 L226 140 L200 88 Z" fill="#FFC83D"/><path d="M200 88 L193 102 L207 102 Z" fill="#ffffff"/><line x1="200" y1="148" x2="200" y2="330" stroke="#ffffff" stroke-width="52"/><line x1="140" y1="192" x2="288" y2="192" stroke="#ffffff" stroke-width="52" stroke-linecap="round"/><circle cx="270" cy="330" r="70" fill="none" stroke="#ffffff" stroke-width="52"/></g></svg>
   </g>
   <text x="156" y="113" font-family="Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="22" letter-spacing="6" fill="#ffffff" font-weight="600">BANTU TUGAS</text>
 

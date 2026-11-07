@@ -1,3 +1,5 @@
+import BrandMark from "./BrandMark";
+
 export default function FooterSection() {
   const year = new Date().getFullYear();
 
@@ -8,7 +10,10 @@ export default function FooterSection() {
         <div className="grid gap-10 md:grid-cols-3">
           {/* Brand */}
           <div>
-            <h3 className="font-serif text-3xl tracking-tight">Bantu Tugas</h3>
+            <div className="flex items-center gap-3">
+              <BrandMark className="h-10 w-10" />
+              <h3 className="font-serif text-3xl tracking-tight">Bantu Tugas</h3>
+            </div>
             <p className="mt-4 text-sm text-white/60 max-w-xs leading-relaxed">
               Jasa pengerjaan skripsi, tugas, KP, PP, serta pengembangan web,
               mobile, dan sistem ERP untuk perusahaan.
