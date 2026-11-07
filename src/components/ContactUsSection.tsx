@@ -1,5 +1,6 @@
 import { useInViewToggle } from "./hooks/useInViewToggle";
 import ArrowUpRightIcon from "./ArrowUpRightIcon";
+import LeadForm from "./LeadForm";
 
 export default function ContactUsSection() {
   const { ref, inView } = useInViewToggle<HTMLDivElement>({
@@ -25,8 +26,9 @@ export default function ContactUsSection() {
             </h2>
             <p className="mt-7 text-lg sm:text-xl leading-relaxed text-white/75">
               Cerita dulu soal tugas, skripsi, atau project webmu — konsultasi
-              gratis, harga menyesuaikan scope. Balas cepat lewat WhatsApp,
-              portofolio &amp; update bisa dicek di Instagram.
+              gratis, harga menyesuaikan scope. Isi form di bawah atau chat
+              langsung lewat WhatsApp — kami balas dalam 1x12 jam.
+              Portofolio &amp; update bisa dicek di Instagram.
             </p>
           </div>
 
@@ -84,10 +86,15 @@ export default function ContactUsSection() {
           </div>
         </div>
 
+        {/* Lead form */}
+        <div className="mt-12" id="form-konsultasi">
+          <LeadForm />
+        </div>
+
         {/* Bottom divider */}
         <div className="mt-14 border-t border-white/10" />
         <p className="mt-6 text-xs tracking-[0.25em] uppercase text-white/50">
-          Konsultasi via WhatsApp &amp; Instagram
+          Konsultasi via form, WhatsApp &amp; Instagram — dibalas dalam 1x12 jam
         </p>
       </div>
     </section>
