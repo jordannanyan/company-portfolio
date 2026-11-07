@@ -470,7 +470,7 @@ export default function App() {
         {/* contact CTA */}
         <div className="px-6 pb-10 pt-4 text-center">
           <a
-            href="https://wa.me/6282253092438"
+            href="https://wa.me/6281775285513"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-5 py-3 text-sm tracking-wider text-white transition hover:border-white/55 hover:bg-white/10"
@@ -480,7 +480,7 @@ export default function App() {
             <span aria-hidden="true">→</span>
           </a>
           <p className="mt-3 text-xs tracking-[0.25em] uppercase text-white/45">
-            +62 822-5309-2438
+            +62 817-7528-5513
           </p>
         </div>
       </div>

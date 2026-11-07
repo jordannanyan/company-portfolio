@@ -36,7 +36,7 @@ export default function ContactUsSection() {
           <div className="grid gap-4 sm:grid-cols-2">
             {/* WhatsApp */}
             <a
-              href="https://wa.me/6282253092438"
+              href="https://wa.me/6281775285513"
               target="_blank"
               rel="noreferrer"
               className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-6 transition-all duration-300 hover:border-white/35 hover:bg-white/10"
@@ -45,7 +45,7 @@ export default function ContactUsSection() {
                 <div>
                   <p className="text-xs tracking-[0.35em] uppercase text-white/60">WhatsApp</p>
                   <p className="mt-3 text-xl font-semibold text-white">
-                    +62 822-5309-2438
+                    +62 817-7528-5513
                   </p>
                   <p className="mt-3 text-sm text-white/70">
                     Chat langsung buat konsultasi &amp; booking pengerjaan.
@@ -61,7 +61,7 @@ export default function ContactUsSection() {
 
             {/* Instagram */}
             <a
-              href="https://instagram.com/webdevpky"
+              href="https://www.instagram.com/bantu.tugas.pky/"
               target="_blank"
               rel="noreferrer"
               className="group relative overflow-hidden rounded-2xl border border-white/15 bg-white/5 p-6 transition-all duration-300 hover:border-white/35 hover:bg-white/10"
@@ -70,7 +70,7 @@ export default function ContactUsSection() {
                 <div>
                   <p className="text-xs tracking-[0.35em] uppercase text-white/60">Instagram</p>
                   <p className="mt-3 text-xl font-semibold text-white">
-                    @webdevpky
+                    @bantu.tugas.pky
                   </p>
                   <p className="mt-3 text-sm text-white/70">
                     DM buat lihat portofolio, testimoni, dan update project.

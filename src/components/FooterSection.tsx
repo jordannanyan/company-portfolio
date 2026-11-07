@@ -43,22 +43,22 @@ export default function FooterSection() {
             <ul className="mt-5 space-y-3 text-sm text-white/70">
               <li>
                 <a
-                  href="https://wa.me/6282253092438"
+                  href="https://wa.me/6281775285513"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
                 >
-                  WhatsApp · +62 822-5309-2438
+                  WhatsApp · +62 817-7528-5513
                 </a>
               </li>
               <li>
                 <a
-                  href="https://instagram.com/webdevpky"
+                  href="https://www.instagram.com/bantu.tugas.pky/"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors"
                 >
-                  Instagram · @webdevpky
+                  Instagram · @bantu.tugas.pky
                 </a>
               </li>
             </ul>

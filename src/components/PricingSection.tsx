@@ -125,7 +125,7 @@ export default function PricingSection() {
             </div>
 
             <a
-              href="https://wa.me/6282253092438"
+              href="https://wa.me/6281775285513"
               target="_blank"
               rel="noreferrer"
               className="mt-auto inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/5 px-4 py-2 text-sm text-white/90 transition hover:border-white/60 hover:bg-white/10"
