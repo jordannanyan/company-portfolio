@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 import FeatureTriptych from "./components/FeatureTriptych";
 import DiscoverMoreSection from "./components/DiscoverMoreSection";
@@ -15,6 +15,10 @@ function clamp(n: number, min: number, max: number) {
 }
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
+}
+/** Per-element offset for the page-load intro (see index.css). */
+function d(ms: number) {
+  return { "--d": `${ms}ms` } as CSSProperties;
 }
 function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -345,7 +349,9 @@ export default function App() {
     <div className="min-h-screen bg-black text-white">
       {/* Logo fixed stays */}
       <div className="fixed top-4 left-1/2 z-50 -translate-x-1/2">
-        <TopLogo />
+        <div className="intro-drop" style={d(100)}>
+          <TopLogo />
+        </div>
       </div>
 
       {/* Mobile hamburger (fixed top-right, hidden on lg+) */}
@@ -354,7 +360,8 @@ export default function App() {
         onClick={() => setMobileOpen(true)}
         aria-label="Buka menu navigasi"
         aria-expanded={mobileOpen}
-        className="fixed top-4 right-4 z-50 grid h-12 w-12 place-items-center rounded-full border border-white/35 bg-black/40 text-white backdrop-blur transition hover:bg-black/60 lg:hidden"
+        style={d(150)}
+        className="intro-drop fixed top-4 right-4 z-50 grid h-12 w-12 place-items-center rounded-full border border-white/35 bg-black/40 text-white backdrop-blur transition hover:bg-black/60 lg:hidden"
       >
         <svg
           viewBox="0 0 24 24"
@@ -391,11 +398,12 @@ export default function App() {
             }}
           >
             <nav className="flex h-full items-center justify-between text-sm tracking-[0.25em] uppercase text-white/90">
-              {navItems.map((item) => (
+              {navItems.map((item, idx) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className="hover:text-white"
+                  className="intro-fade hover:text-white"
+                  style={d(200 + idx * 60)}
                   onClick={(ev) => {
                     ev.preventDefault();
                     handleNavClick(item.id);
@@ -492,7 +500,9 @@ export default function App() {
             boxShadow: `0 30px 80px rgba(0,0,0,${shadowOpacity})`,
           }}
         >
-          <HeroIllustration />
+          <div className="intro-zoom h-full w-full">
+            <HeroIllustration />
+          </div>
           <div className="absolute inset-0 bg-black pointer-events-none" style={{ opacity: overlayOpacity * 0.4 }} />
         </div>
 
@@ -504,13 +514,13 @@ export default function App() {
           }}
         >
           <div className="max-w-4xl">
-            <p className="text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70">
+            <p className="intro-rise text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70" style={d(250)}>
               Bantu Tugas — Skripsi · Tugas · Web &amp; Sistem Bisnis
             </p>
-            <h1 className="mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
+            <h1 style={d(360)} className="intro-rise mt-5 font-serif text-4xl sm:text-6xl md:text-7xl leading-[0.95] tracking-tight">
               Tugasmu, kami yang selesaikan.
             </h1>
-            <p className="mt-6 text-base sm:text-lg text-white/75">
+            <p className="intro-rise mt-6 text-base sm:text-lg text-white/75" style={d(500)}>
               Skripsi, KP, PP, tugas kuliah, sampai sistem ERP perusahaan —
               dikerjakan rapi, tepat waktu, dan sudah dipercaya puluhan
               mahasiswa &amp; klien bisnis.
@@ -520,7 +530,7 @@ export default function App() {
 
         {!scrollUnlocked ? (
           <div className="pointer-events-none absolute bottom-8 left-1/2 z-20 -translate-x-1/2 text-xs tracking-[0.3em] uppercase text-white/70">
-            Swipe / scroll untuk masuk
+            <span className="intro-hint inline-block">Swipe / scroll untuk masuk</span>
           </div>
         ) : null}
       </section>

@@ -5,3 +5,113 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* ------------------------------------------------------------------
+   Page-load intro
+   The splash (#bt-splash, in index.html) plays first; hero elements
+   then enter in sequence. --intro-delay is when the hero starts;
+   html.bt-skip-intro (set on repeat visits in the same session)
+   drops the splash and starts the hero right away.
+   Per-element offsets come from the --d custom property.
+------------------------------------------------------------------- */
+:root {
+  --intro-delay: 950ms;
+  --intro-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+html.bt-skip-intro {
+  --intro-delay: 0ms;
+}
+
+@keyframes intro-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+@keyframes intro-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes intro-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes intro-zoom {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes hint-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(4px);
+  }
+}
+
+.intro-rise,
+.intro-drop,
+.intro-fade,
+.intro-zoom {
+  animation-duration: 900ms;
+  animation-timing-function: var(--intro-ease);
+  animation-fill-mode: both;
+  animation-delay: calc(var(--intro-delay) + var(--d, 0ms));
+}
+.intro-rise {
+  animation-name: intro-rise;
+}
+.intro-drop {
+  animation-name: intro-drop;
+  animation-duration: 700ms;
+}
+.intro-fade {
+  animation-name: intro-fade;
+  animation-duration: 700ms;
+}
+.intro-zoom {
+  animation-name: intro-zoom;
+  animation-duration: 1400ms;
+}
+.intro-hint {
+  animation:
+    intro-fade 700ms var(--intro-ease) both,
+    hint-breathe 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--intro-delay) + 900ms),
+    calc(var(--intro-delay) + 1600ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-rise,
+  .intro-drop,
+  .intro-fade,
+  .intro-zoom,
+  .intro-hint {
+    animation: none;
+  }
+}

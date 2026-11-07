@@ -163,8 +163,47 @@
         "inLanguage": "id-ID"
       }
     </script>
+  <!-- Page-load intro splash (plays once per session; see src/index.css) -->
+    <script>
+      try {
+        if (sessionStorage.getItem("bt-intro")) document.documentElement.classList.add("bt-skip-intro");
+        else sessionStorage.setItem("bt-intro", "1");
+      } catch (e) {}
+    </script>
+    <style>
+      #bt-splash{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:#000;pointer-events:none;animation:bt-out .5s cubic-bezier(.22,1,.36,1) .95s forwards}
+      #bt-splash svg{width:88px;height:88px;overflow:visible;animation:bt-zoom .5s cubic-bezier(.55,0,.1,1) .95s forwards}
+      #bt-splash .bt-s{stroke-dasharray:1 1;stroke-dashoffset:1;animation:bt-draw .5s cubic-bezier(.65,0,.35,1) forwards}
+      #bt-splash .bt-stem{animation-delay:.08s}
+      #bt-splash .bt-bowl{animation-delay:.32s;animation-duration:.55s}
+      #bt-splash .bt-bar{transform:scaleX(0);transform-box:fill-box;transform-origin:left center;animation:bt-bar .45s cubic-bezier(.65,0,.35,1) .25s forwards}
+      #bt-splash .bt-pencil{opacity:0;transform:translateY(-36px);animation:bt-pop .45s cubic-bezier(.34,1.56,.64,1) .62s forwards}
+      #bt-splash .bt-word{font:600 12px/1 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;letter-spacing:.45em;text-transform:uppercase;color:rgba(255,255,255,.6);opacity:0;animation:bt-fade .5s ease .45s forwards}
+      @keyframes bt-draw{to{stroke-dashoffset:0}}
+      @keyframes bt-bar{to{transform:scaleX(1)}}
+      @keyframes bt-pop{to{opacity:1;transform:none}}
+      @keyframes bt-fade{to{opacity:1}}
+      @keyframes bt-zoom{to{transform:scale(1.18)}}
+      @keyframes bt-out{to{opacity:0;visibility:hidden}}
+      html.bt-skip-intro #bt-splash{display:none}
+      @media (prefers-reduced-motion:reduce){#bt-splash{display:none}}
+    </style>
   </head>
   <body>
+    <div id="bt-splash" aria-hidden="true">
+      <svg viewBox="76 80 360 360">
+        <g transform="translate(14 2)" fill="none" stroke="#fff" stroke-width="52">
+          <line class="bt-s bt-stem" pathLength="1" x1="200" y1="148" x2="200" y2="330" />
+          <circle class="bt-s bt-bowl" pathLength="1" cx="270" cy="330" r="70" transform="rotate(180 270 330)" />
+          <line class="bt-bar" x1="140" y1="192" x2="288" y2="192" stroke-linecap="round" />
+          <g class="bt-pencil" stroke="none">
+            <path d="M174 140 L226 140 L200 88 Z" fill="#FFC83D" />
+            <path d="M200 88 L193 102 L207 102 Z" fill="#fff" />
+          </g>
+        </g>
+      </svg>
+      <span class="bt-word">Bantu Tugas</span>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
