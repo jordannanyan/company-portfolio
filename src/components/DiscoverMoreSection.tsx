@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useInViewToggle } from "./hooks/useInViewToggle";
 
-import OJKWeb from "../assets/OJK-web.png";
-import PemiraWeb from "../assets/pemira-web.png";
-import FairventureWeb from "../assets/fairventure-web.png";
-import FairventureApp from "../assets/fairventure-app.png";
+import OJKWeb from "../assets/OJK-web.webp";
+import PemiraWeb from "../assets/pemira-web.webp";
+import FairventureWeb from "../assets/fairventure-web.webp";
+import FairventureApp from "../assets/fairventure-app.webp";
 
 type Card = {
   client: string;
@@ -117,8 +117,9 @@ export default function DiscoverMoreSection() {
                   <img
                     src={c.secondaryImg}
                     alt={`${c.client} mobile app`}
+                    width={726}
+                    height={1540}
                     className="absolute bottom-2 right-2 h-[70%] w-auto rounded-md border border-white/20 shadow-lg"
-                    loading="lazy"
                     draggable={false}
                   />
                 ) : null}

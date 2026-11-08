@@ -1,0 +1,35 @@
+# SEO + caching rules for bantutugas.site (Apache, AllowOverride All).
+
+# One canonical URL: https://bantutugas.site/ (no www, no /index.html)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.bantutugas\.site$ [NC]
+  RewriteRule ^ https://bantutugas.site%{REQUEST_URI} [R=301,L,NE]
+  RewriteCond %{THE_REQUEST} \s/index\.html[\s?] [NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Hashed build files never change -> cache for a year.
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+  # HTML / sitemap / robots: always revalidate so updates show up quickly.
+  <FilesMatch "\.(html|xml|txt)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(png|svg|ico|webp)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  # Keep the admin page out of search results.
+  <If "%{REQUEST_URI} =~ m#^/admin#">
+    Header set X-Robots-Tag "noindex, nofollow"
+  </If>
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript application/json image/svg+xml text/xml application/xml text/plain
+</IfModule>
+
+AddType image/webp .webp

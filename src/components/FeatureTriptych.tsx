@@ -1,9 +1,9 @@
-import OJKWeb from "../assets/OJK-web.png";
-import PemiraWeb from "../assets/pemira-web.png";
-import FairventureWeb from "../assets/fairventure-web.png";
-import WebJoki1 from "../assets/web-joki1.png";
-import WebJoki2 from "../assets/web-joki2.png";
-import WebJoki3 from "../assets/web-joki3.png";
+import OJKWeb from "../assets/OJK-web.webp";
+import PemiraWeb from "../assets/pemira-web.webp";
+import FairventureWeb from "../assets/fairventure-web.webp";
+import WebJoki1 from "../assets/web-joki1.webp";
+import WebJoki2 from "../assets/web-joki2.webp";
+import WebJoki3 from "../assets/web-joki3.webp";
 
 import FeatureBlock, { type FeatureItem } from "./FeatureBlock";
 
@@ -16,7 +16,7 @@ export default function FeatureTriptych() {
       body:
         "Berpengalaman mengerjakan skripsi lintas jurusan — Teknik, Ekonomi & Bisnis, dan FKIP. Lebih dari 20 mahasiswa yang kami dampingi sudah lulus, dengan 5+ di antaranya cumlaude. Dari bab 1 sampai revisi dosen, kami bantu rapikan.",
       imageSrc: WebJoki1,
-      imageAlt: "Skripsi",
+      imageAlt: "Layanan jasa skripsi Bantu Tugas",
     },
     {
       id: "tugas",
@@ -25,7 +25,7 @@ export default function FeatureTriptych() {
       body:
         "30+ Kerja Praktik, 40+ Program Profesional, dan banyak tugas harian sudah kami rampungkan. Laporan, analisis, presentasi — dikerjakan rapi sesuai format kampus dan deadline yang realistis.",
       imageSrc: WebJoki2,
-      imageAlt: "Tugas",
+      imageAlt: "Layanan tugas kuliah, KP dan PP",
     },
     {
       id: "analisis",
@@ -34,7 +34,7 @@ export default function FeatureTriptych() {
       body:
         "Olah data kuantitatif dan kualitatif untuk skripsi, tesis, atau laporan: uji validitas-reliabilitas, regresi, ANOVA, SEM, uji non-parametrik, sampai visualisasi. Dikerjakan dengan SPSS, Excel, MATLAB, Minitab, Python (pandas/numpy), dan R — dipilih sesuai kebutuhan metodologi.",
       imageSrc: WebJoki3,
-      imageAlt: "Analisis Data",
+      imageAlt: "Layanan analisis data SPSS, Excel dan MATLAB",
     },
     {
       id: "webdev",
@@ -43,17 +43,17 @@ export default function FeatureTriptych() {
       body:
         "Kami juga membangun produk nyata. Pernah mengerjakan website untuk OJK, Pemira UPR, dan Fairventure Agroforestry (web + mobile). Untuk perusahaan, kami kembangkan sistem ERP, POS, inventory, CRM, dan aplikasi bisnis custom — mulai dari Rp 5 juta. Website juga kami optimasi SEO — riset keyword, on-page, kecepatan, dan Google Search Console — supaya bisnismu mudah ditemukan di Google. Butuh skripsi berbasis sistem/aplikasi? Bisa sekaligus kami build.",
       imageSrc: FairventureWeb,
-      imageAlt: "Web, SEO, Mobile & ERP",
+      imageAlt: "Portofolio website, SEO, aplikasi mobile dan sistem ERP",
     },
   ];
 
   const carouselImages = [
-    { src: OJKWeb, alt: "OJK" },
-    { src: PemiraWeb, alt: "Pemira UPR" },
-    { src: FairventureWeb, alt: "Fairventure" },
-    { src: WebJoki1, alt: "Portofolio web 1" },
-    { src: WebJoki2, alt: "Portofolio web 2" },
-    { src: WebJoki3, alt: "Portofolio web 3" },
+    { src: OJKWeb, alt: "Website OJK buatan Bantu Tugas" },
+    { src: PemiraWeb, alt: "Website Pemira UPR buatan Bantu Tugas" },
+    { src: FairventureWeb, alt: "Website Fairventure Agroforestry buatan Bantu Tugas" },
+    { src: WebJoki1, alt: "Contoh tampilan website buatan Bantu Tugas" },
+    { src: WebJoki2, alt: "Contoh dashboard sistem web buatan Bantu Tugas" },
+    { src: WebJoki3, alt: "Contoh aplikasi web bisnis buatan Bantu Tugas" },
   ];
 
   const tools = [

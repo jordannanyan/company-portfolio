@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-import WebJoki1 from "../assets/web-joki1.png";
-import WebJoki2 from "../assets/web-joki2.png";
-import WebJoki3 from "../assets/web-joki3.png";
-import AppJoki1 from "../assets/app-joki1.png";
+import WebJoki1 from "../assets/web-joki1.webp";
+import WebJoki2 from "../assets/web-joki2.webp";
+import WebJoki3 from "../assets/web-joki3.webp";
+import AppJoki1 from "../assets/app-joki1.webp";
 
 export default function HeroIllustration() {
   const slides = [WebJoki1, WebJoki2, WebJoki3];
