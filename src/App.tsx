@@ -323,12 +323,14 @@ export default function App() {
   const titleOpacity = useMemo(() => lerp(1, 0, clamp((e - 0.05) / 0.35, 0, 1)), [e]);
   const titleTranslateY = useMemo(() => lerp(0, -22, clamp((e - 0.05) / 0.35, 0, 1)), [e]);
 
-  const navItems = [
+  // `href` items are real links (opened in a new tab) instead of in-page scroll targets.
+  const PORTFOLIO_PDF = "/portofolio-bantu-tugas.pdf";
+  const navItems: { label: string; id: string; href?: string }[] = [
     { label: "Home", id: "top" },
     { label: "Layanan", id: "features" },
     { label: "Harga", id: "pricing" },
     { label: "Track Record", id: "stats" },
-    { label: "Portofolio", id: "discover" },
+    { label: "Portofolio", id: "portfolio", href: PORTFOLIO_PDF },
     { label: "Contact", id: "contact" },
   ];
 
@@ -401,10 +403,12 @@ export default function App() {
               {navItems.map((item, idx) => (
                 <a
                   key={item.id}
-                  href={`#${item.id}`}
+                  href={item.href ?? `#${item.id}`}
+                  {...(item.href ? { target: "_blank", rel: "noopener" } : {})}
                   className="intro-fade hover:text-white"
                   style={d(200 + idx * 60)}
                   onClick={(ev) => {
+                    if (item.href) return;
                     ev.preventDefault();
                     handleNavClick(item.id);
                   }}
@@ -455,9 +459,14 @@ export default function App() {
           {navItems.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={item.href ?? `#${item.id}`}
+              {...(item.href ? { target: "_blank", rel: "noopener" } : {})}
               className="transition hover:text-white"
               onClick={(ev) => {
+                if (item.href) {
+                  setMobileOpen(false);
+                  return;
+                }
                 ev.preventDefault();
                 handleNavClick(item.id);
               }}

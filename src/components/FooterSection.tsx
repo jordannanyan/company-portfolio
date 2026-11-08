@@ -30,7 +30,7 @@ export default function FooterSection() {
               <li><a href="#features" className="hover:text-white transition-colors">Layanan</a></li>
               <li><a href="#pricing" className="hover:text-white transition-colors">Harga</a></li>
               <li><a href="#stats" className="hover:text-white transition-colors">Track Record</a></li>
-              <li><a href="#discover" className="hover:text-white transition-colors">Portofolio</a></li>
+              <li><a href="/portofolio-bantu-tugas.pdf" target="_blank" rel="noopener" className="hover:text-white transition-colors">Portofolio (PDF)</a></li>
               <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
