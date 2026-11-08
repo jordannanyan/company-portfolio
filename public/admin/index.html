@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Bantu Tugas</title>
+<link rel="icon" href="/logo.svg">
+<!-- Lead inbox for the contact form. Talks to /api/admin/* (server/app.js); the session
+     is an HttpOnly cookie, so this page never stores the password. -->
+<style>
+  :root { --ink:#0B0B0F; --acc:#FFC83D; --cream:#F4F3EF; --card:#fff; --mut:#6b6b73; --line:#e4e2dc;
+          --red:#E5484D; --green:#2f9e62; --blue:#3b5bdb; --gray:#8a8a92;
+          font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif; color:var(--ink); }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--cream); }
+  button, input, select { font:inherit; color:inherit; }
+  .hidden { display:none !important; }
+  a { color:inherit; }
+
+  /* login */
+  .login { min-height:100vh; display:grid; place-items:center; padding:16px; }
+  .login form { width:100%; max-width:360px; background:var(--card); border-radius:20px; padding:28px; box-shadow:0 20px 50px rgba(0,0,0,.08); }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; font-size:13px; }
+  .brand img { width:30px; height:30px; }
+  .login h1 { font-family:Georgia,serif; font-weight:400; font-size:30px; margin:22px 0 18px; }
+  .field { width:100%; padding:13px 14px; border:1px solid var(--line); border-radius:12px; background:#fff; }
+  .field:focus { outline:2px solid var(--acc); border-color:transparent; }
+  .btn { border:0; border-radius:999px; padding:12px 18px; font-weight:700; cursor:pointer; background:var(--ink); color:#fff; }
+  .btn.acc { background:var(--acc); color:var(--ink); }
+  .btn.ghost { background:transparent; border:1px solid var(--line); color:var(--ink); }
+  .btn:disabled { opacity:.5; cursor:default; }
+  .login .btn { width:100%; margin-top:14px; padding:14px; }
+  .err { color:var(--red); font-size:14px; margin-top:10px; min-height:1em; }
+
+  /* app */
+  header { position:sticky; top:0; z-index:5; background:var(--ink); color:#fff; }
+  .bar { max-width:900px; margin:0 auto; padding:12px 16px; display:flex; align-items:center; gap:10px; }
+  .bar .brand { color:var(--acc); flex:1; }
+  .bar .btn { padding:8px 14px; font-size:14px; background:#22222a; }
+  main { max-width:900px; margin:0 auto; padding:16px 16px 60px; }
+  .tabs { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
+  .tab { flex:none; border:1px solid var(--line); background:#fff; border-radius:999px; padding:8px 14px; font-size:14px; font-weight:600; cursor:pointer; }
+  .tab b { margin-left:6px; font-weight:700; opacity:.55; }
+  .tab.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  .tab.on b { opacity:.8; color:var(--acc); }
+  .search { margin:12px 0 4px; }
+  .meta { font-size:13px; color:var(--mut); margin:8px 2px 14px; }
+
+  .card { background:var(--card); border-radius:18px; padding:16px 18px; margin-bottom:12px; border-left:5px solid var(--gray); }
+  .card[data-s="baru"] { border-left-color:var(--acc); }
+  .card[data-s="dihubungi"] { border-left-color:var(--blue); }
+  .card[data-s="deal"] { border-left-color:var(--green); }
+  .card[data-s="batal"] { opacity:.7; }
+  .top { display:flex; align-items:flex-start; gap:10px; }
+  .who { flex:1; min-width:0; }
+  .name { font-weight:700; font-size:17px; overflow-wrap:anywhere; }
+  .sub { font-size:13px; color:var(--mut); margin-top:3px; }
+  .pill { display:inline-block; font-size:12px; font-weight:700; padding:3px 9px; border-radius:999px; background:var(--cream); margin-right:6px; }
+  .due { font-size:12px; font-weight:700; padding:3px 9px; border-radius:999px; white-space:nowrap; }
+  .due.ok { background:#fff4d1; color:#8a6400; }
+  .due.late { background:#fde4e4; color:var(--red); }
+  .msg { margin-top:12px; font-size:15px; line-height:1.5; white-space:pre-wrap; overflow-wrap:anywhere; }
+  .msg.clip { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; cursor:pointer; }
+  .facts { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:12px; font-size:14px; }
+  .facts span { color:var(--mut); }
+  .actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; align-items:center; }
+  .actions .btn { padding:9px 14px; font-size:14px; text-decoration:none; }
+  .actions select { margin-left:auto; padding:9px 12px; border-radius:999px; border:1px solid var(--line); background:#fff; font-weight:600; font-size:14px; cursor:pointer; }
+  .empty { text-align:center; color:var(--mut); padding:50px 0; }
+  .toast { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:var(--ink); color:#fff; padding:10px 16px; border-radius:12px; font-size:14px; z-index:10; }
+  @media (max-width:520px) { .actions select { margin-left:0; width:100%; } }
+</style>
+</head>
+<body>
+
+<div id="login" class="login hidden">
+  <form id="loginForm">
+    <div class="brand"><img src="/logo.svg" alt="">Bantu Tugas</div>
+    <h1>Masuk admin</h1>
+    <input id="pw" class="field" type="password" placeholder="Password" autocomplete="current-password" required>
+    <button class="btn acc" id="loginBtn">Masuk</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</div>
+
+<div id="app" class="hidden">
+  <header><div class="bar">
+    <div class="brand"><img src="/logo.svg" alt="">Leads</div>
+    <button class="btn" id="refresh" title="Muat ulang">↻</button>
+    <button class="btn" id="logout">Keluar</button>
+  </div></header>
+  <main>
+    <div class="tabs" id="tabs"></div>
+    <input class="field search" id="q" type="search" placeholder="Cari nama, nomor, layanan, atau isi pesan…">
+    <div class="meta" id="meta"></div>
+    <div id="list"></div>
+  </main>
+</div>
+
+<script>
+const STATUSES = [["baru", "Baru"], ["dihubungi", "Dihubungi"], ["deal", "Deal"], ["batal", "Batal"]];
+const TZ = "Asia/Jakarta";
+const $ = (id) => document.getElementById(id);
+let leads = [], filter = "baru", lastLoad = 0;
+
+// Tiny DOM builder. Text always goes through textContent, so lead data can't inject HTML.
+function h(tag, attrs = {}, ...kids) {
+  const el = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k === "class") el.className = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v);
+  }
+  for (const kid of kids.flat()) if (kid != null && kid !== false) el.append(kid instanceof Node ? kid : String(kid));
+  return el;
+}
+
+async function api(path, opts = {}) {
+  const res = await fetch("/api/admin/" + path, {
+    credentials: "same-origin",
+    headers: opts.body ? { "Content-Type": "application/json" } : {},
+    ...opts,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  const data = await res.json().catch(() => ({}));
+  if ((res.status === 401 && path !== "login") || res.status === 503) {
+    show("login");
+    if (res.status === 503) $("loginErr").textContent = data.error;
+    throw new Error("401");
+  }
+  if (!res.ok) throw new Error(data.error || "Gagal (" + res.status + ")");
+  return data;
+}
+
+function show(which) {
+  $("login").classList.toggle("hidden", which !== "login");
+  $("app").classList.toggle("hidden", which !== "app");
+  if (which === "login") setTimeout(() => $("pw").focus(), 0);
+}
+
+function toast(text) {
+  const t = h("div", { class: "toast" }, text);
+  document.body.append(t);
+  setTimeout(() => t.remove(), 2200);
+}
+
+const fmtDate = (ts) => new Intl.DateTimeFormat("id-ID", { timeZone: TZ, day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }).format(ts * 1000) + " WIB";
+function ago(ts) {
+  const s = Math.max(0, Date.now() / 1000 - ts);
+  if (s < 60) return "baru saja";
+  if (s < 3600) return Math.floor(s / 60) + " menit lalu";
+  if (s < 86400) return Math.floor(s / 3600) + " jam lalu";
+  return Math.floor(s / 86400) + " hari lalu";
+}
+function dur(sec) {
+  const m = Math.round(Math.abs(sec) / 60), hh = Math.floor(m / 60);
+  return hh ? `${hh}j ${m % 60}m` : `${m}m`;
+}
+function waLink(l) {
+  const text = `Halo ${l.name}, terima kasih sudah menghubungi Bantu Tugas lewat website. Kami sudah membaca kebutuhan ${l.service} kamu, boleh kami jelaskan langkah selanjutnya?`;
+  return `https://wa.me/${l.whatsapp}?text=${encodeURIComponent(text)}`;
+}
+
+function renderTabs() {
+  const count = (s) => s === "semua" ? leads.length : leads.filter((l) => l.status === s).length;
+  $("tabs").replaceChildren(...[["semua", "Semua"], ...STATUSES].map(([s, label]) =>
+    h("button", { class: "tab" + (filter === s ? " on" : ""), onclick: () => { filter = s; render(); } }, label, h("b", {}, count(s)))));
+}
+
+function card(l) {
+  const left = l.ts + 12 * 3600 - Date.now() / 1000;
+  const due = l.status === "baru"
+    ? h("span", { class: "due " + (left > 0 ? "ok" : "late") }, left > 0 ? "sisa " + dur(left) : "lewat " + dur(left))
+    : null;
+  const msg = h("div", { class: "msg clip", title: "Ketuk untuk buka", onclick: (e) => e.currentTarget.classList.toggle("clip") }, l.message);
+  const sel = h("select", { "aria-label": "Status", onchange: async (e) => {
+    const prev = l.status, next = e.target.value;
+    e.target.disabled = true;
+    try { await api("leads/" + l.id, { method: "PATCH", body: { status: next } }); l.status = next; toast("Status → " + next); render(); }
+    catch (err) { e.target.value = prev; if (err.message !== "401") toast(err.message); }
+    finally { e.target.disabled = false; }
+  } }, STATUSES.map(([s, label]) => h("option", { value: s, selected: s === l.status ? "" : null }, label)));
+
+  return h("article", { class: "card", "data-s": l.status },
+    h("div", { class: "top" },
+      h("div", { class: "who" },
+        h("div", { class: "name" }, l.name),
+        h("div", { class: "sub" }, h("span", { class: "pill" }, l.service), "#" + l.id + " · " + ago(l.ts))),
+      due),
+    msg,
+    h("div", { class: "facts" },
+      h("div", {}, h("span", {}, "WA "), "+" + l.whatsapp),
+      l.email ? h("div", {}, h("span", {}, "Email "), l.email) : null,
+      l.deadline ? h("div", {}, h("span", {}, "Deadline "), l.deadline) : null,
+      h("div", {}, h("span", {}, "Masuk "), fmtDate(l.ts))),
+    h("div", { class: "actions" },
+      h("a", { class: "btn acc", href: waLink(l), target: "_blank", rel: "noopener" }, "Chat WhatsApp"),
+      l.email ? h("a", { class: "btn ghost", href: "mailto:" + l.email }, "Email") : null,
+      sel));
+}
+
+function render() {
+  renderTabs();
+  const q = $("q").value.trim().toLowerCase();
+  const rows = leads.filter((l) => (filter === "semua" || l.status === filter) &&
+    (!q || [l.name, l.whatsapp, l.email, l.service, l.message].some((v) => (v || "").toLowerCase().includes(q))));
+  $("list").replaceChildren(...(rows.length ? rows.map(card) : [h("div", { class: "empty" }, leads.length ? "Tidak ada lead di sini." : "Belum ada yang mengisi form.")]));
+  $("meta").textContent = `${rows.length} lead · diperbarui ${new Intl.DateTimeFormat("id-ID", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }).format(lastLoad)} WIB`;
+}
+
+async function load() {
+  const btn = $("refresh");
+  btn.disabled = true;
+  try {
+    const data = await api("leads");
+    leads = data.leads; lastLoad = Date.now();
+    show("app"); render();
+    document.title = (leads.some((l) => l.status === "baru") ? `(${leads.filter((l) => l.status === "baru").length}) ` : "") + "Admin · Bantu Tugas";
+  } catch (err) { if (err.message !== "401") toast(err.message); }
+  finally { btn.disabled = false; }
+}
+
+$("loginForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  $("loginBtn").disabled = true; $("loginErr").textContent = "";
+  try { await api("login", { method: "POST", body: { password: $("pw").value } }); $("pw").value = ""; await load(); }
+  catch (err) { if (err.message !== "401") $("loginErr").textContent = err.message; }
+  finally { $("loginBtn").disabled = false; }
+});
+$("logout").addEventListener("click", async () => { await api("logout", { method: "POST" }).catch(() => {}); leads = []; show("login"); });
+$("refresh").addEventListener("click", load);
+$("q").addEventListener("input", render);
+// Refresh every minute while the tab is visible, and right away when coming back to it.
+setInterval(() => { if (!document.hidden && !$("app").classList.contains("hidden")) load(); }, 60000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden && !$("app").classList.contains("hidden") && Date.now() - lastLoad > 30000) load(); });
+
+load();
+</script>
+</body>
+</html>
