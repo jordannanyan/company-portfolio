@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import FeatureTriptych from "./components/FeatureTriptych";
 import DiscoverMoreSection from "./components/DiscoverMoreSection";
@@ -24,10 +24,53 @@ function easeInOutCubic(t: number) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
+/**
+ * Every animated value of the scroll intro for a given progress (0..1).
+ * Used for the initial (server-rendered) styles and, on every animation frame,
+ * written straight to the DOM — so the intro never re-renders the React tree.
+ */
+function introStyles(progress: number) {
+  const e = easeInOutCubic(clamp(progress, 0, 1));
+  const nav = clamp((e - 0.1) / 0.55, 0, 1);
+  const title = clamp((e - 0.05) / 0.35, 0, 1);
+  const inset = Math.round(lerp(56, 0, e));
+  const navOpacity = lerp(1, 0, nav);
+  return {
+    // HERO frame -> full bleed
+    frame: {
+      top: inset, right: inset, bottom: inset, left: inset,
+      borderRadius: Math.round(lerp(28, 0, e)),
+      boxShadow: `0 30px 80px rgba(0,0,0,${lerp(0.35, 0, e)})`,
+    },
+    overlay: { opacity: lerp(0.45, 0.2, e) * 0.4 },
+    // NAVBAR exit
+    nav: {
+      height: Math.round(lerp(64, 0, clamp((e - 0.12) / 0.55, 0, 1))),
+      opacity: navOpacity,
+      transform: `translateY(${lerp(0, -32, nav)}px)`,
+      pointerEvents: (navOpacity < 0.1 ? "none" : "auto") as "none" | "auto",
+    },
+    // Title exit
+    title: { opacity: lerp(1, 0, title), transform: `translateY(${lerp(0, -22, title)}px)` },
+  };
+}
+const INTRO_START = introStyles(0);
+
+/** Copies a style object onto an element, adding "px" to bare numbers. */
+function applyStyle(el: HTMLElement | null, style: Record<string, string | number>) {
+  if (!el) return;
+  for (const [k, v] of Object.entries(style)) {
+    (el.style as unknown as Record<string, string>)[k] = typeof v === "number" && k !== "opacity" ? `${v}px` : String(v);
+  }
+}
+
 export default function App() {
-  // progress 0..1, reversible
-  const [progress, setProgress] = useState(0);
+  // progress 0..1, reversible — kept in a ref; visuals are written directly to these elements
   const [scrollUnlocked, setScrollUnlocked] = useState(false);
+  const heroFrameRef = useRef<HTMLDivElement>(null);
+  const heroOverlayRef = useRef<HTMLDivElement>(null);
+  const heroTitleRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLDivElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const progressRef = useRef(0);
@@ -71,6 +114,14 @@ export default function App() {
     };
   }, [mobileOpen]);
 
+  const renderIntro = (progress: number) => {
+    const s = introStyles(progress);
+    applyStyle(heroFrameRef.current, s.frame);
+    applyStyle(heroOverlayRef.current, s.overlay);
+    applyStyle(heroTitleRef.current, s.title);
+    applyStyle(navRef.current, s.nav);
+  };
+
   // smoother (lebih enak di HP, tidak lompat)
   const animateToTarget = () => {
     if (rafRef.current) return;
@@ -86,7 +137,7 @@ export default function App() {
       const next = current + (target - current) * smoothing;
 
       progressRef.current = next;
-      setProgress(next);
+      renderIntro(next);
 
       const near = Math.abs(target - next) < 0.002;
       if (!near) {
@@ -95,7 +146,7 @@ export default function App() {
       }
 
       progressRef.current = target;
-      setProgress(target);
+      renderIntro(target);
 
       if (target >= 1 && !unlockedRef.current) setUnlocked(true);
       if (target <= 0 && unlockedRef.current) setUnlocked(false);
@@ -304,25 +355,6 @@ export default function App() {
     };
   }, []);
 
-  // eased progress for visuals
-  const p = useMemo(() => clamp(progress, 0, 1), [progress]);
-  const e = useMemo(() => easeInOutCubic(p), [p]);
-
-  // HERO frame -> full bleed
-  const inset = useMemo(() => Math.round(lerp(56, 0, e)), [e]);
-  const corner = useMemo(() => Math.round(lerp(28, 0, e)), [e]);
-  const shadowOpacity = useMemo(() => lerp(0.35, 0, e), [e]);
-  const overlayOpacity = useMemo(() => lerp(0.45, 0.2, e), [e]);
-
-  // NAVBAR exit
-  const navOpacity = useMemo(() => lerp(1, 0, clamp((e - 0.1) / 0.55, 0, 1)), [e]);
-  const navTranslateY = useMemo(() => lerp(0, -32, clamp((e - 0.1) / 0.55, 0, 1)), [e]);
-  const navHeight = useMemo(() => Math.round(lerp(64, 0, clamp((e - 0.12) / 0.55, 0, 1))), [e]);
-
-  // Title exit
-  const titleOpacity = useMemo(() => lerp(1, 0, clamp((e - 0.05) / 0.35, 0, 1)), [e]);
-  const titleTranslateY = useMemo(() => lerp(0, -22, clamp((e - 0.05) / 0.35, 0, 1)), [e]);
-
   // `href` items are real links (opened in a new tab) instead of in-page scroll targets.
   const PORTFOLIO_PDF = "/portofolio-bantu-tugas.pdf";
   const navItems: { label: string; id: string; href?: string }[] = [
@@ -390,15 +422,7 @@ export default function App() {
 
         {/* Navbar area: height collapses to 0 (desktop only — mobile uses hamburger overlay) */}
         <div className="hidden border-t border-white/10 overflow-hidden lg:block">
-          <div
-            className="mx-auto max-w-6xl px-4"
-            style={{
-              height: navHeight,
-              opacity: navOpacity,
-              transform: `translateY(${navTranslateY}px)`,
-              pointerEvents: navOpacity < 0.1 ? "none" : "auto",
-            }}
-          >
+          <div ref={navRef} className="mx-auto max-w-6xl px-4" style={INTRO_START.nav}>
             <nav className="flex h-full items-center justify-between text-sm tracking-[0.25em] uppercase text-white/90">
               {navItems.map((item, idx) => (
                 <a
@@ -499,28 +523,20 @@ export default function App() {
         <div className="absolute inset-0 bg-black" />
 
         <div
+          ref={heroFrameRef}
           className="absolute overflow-hidden will-change-[inset,border-radius]"
-          style={{
-            top: inset,
-            right: inset,
-            bottom: inset,
-            left: inset,
-            borderRadius: corner,
-            boxShadow: `0 30px 80px rgba(0,0,0,${shadowOpacity})`,
-          }}
+          style={INTRO_START.frame}
         >
           <div className="intro-zoom h-full w-full">
             <HeroIllustration />
           </div>
-          <div className="absolute inset-0 bg-black pointer-events-none" style={{ opacity: overlayOpacity * 0.4 }} />
+          <div ref={heroOverlayRef} className="absolute inset-0 bg-black pointer-events-none" style={INTRO_START.overlay} />
         </div>
 
         <div
-          className="relative z-10 flex h-full flex-col items-center px-6 pt-[14vh] text-center sm:pt-[16vh]"
-          style={{
-            opacity: titleOpacity,
-            transform: `translateY(${titleTranslateY}px)`,
-          }}
+          ref={heroTitleRef}
+          className="relative z-10 flex h-full flex-col items-center px-6 pt-[14vh] text-center will-change-[opacity,transform] sm:pt-[16vh]"
+          style={INTRO_START.title}
         >
           <div className="max-w-4xl">
             <p className="intro-rise text-xs sm:text-sm tracking-[0.45em] uppercase text-white/70" style={d(250)}>
