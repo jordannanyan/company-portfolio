@@ -133,7 +133,7 @@ export default function App() {
       const target = targetRef.current;
 
       // smoothing: lebih kecil = lebih lembut
-      const smoothing = isMobileRef.current ? 0.22 : 0.16;
+      const smoothing = isMobileRef.current ? 0.14 : 0.11;
       const next = current + (target - current) * smoothing;
 
       progressRef.current = next;
