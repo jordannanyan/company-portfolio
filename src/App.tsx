@@ -234,13 +234,25 @@ export default function App() {
       if (window.scrollY !== 0) window.scrollTo({ top: 0 });
     };
 
+    // One gesture plays the whole intro: scroll input only decides the DIRECTION.
+    // Small deltas (trackpad, short swipes) are summed until they clearly mean
+    // "down" or "up"; then the intro animates all the way to the end (or back),
+    // with the same easing as before, instead of needing several scrolls.
+    let intent = 0;
+    let intentTimer: number | undefined;
     const addDelta = (deltaY: number) => {
-      // desktop: lebih berat, mobile: lebih “gampang”
-      const divisor = isMobileRef.current ? 1200 : 2600;
-      const cap = isMobileRef.current ? 0.075 : 0.04;
+      intent += deltaY;
+      window.clearTimeout(intentTimer);
+      intentTimer = window.setTimeout(() => (intent = 0), 220);
 
-      const step = clamp(deltaY / divisor, -cap, cap);
-      targetRef.current = clamp(targetRef.current + step, 0, 1);
+      const threshold = isMobileRef.current ? 24 : 12; // touch deltas are px x2 (see onTouchMove)
+      if (intent >= threshold) {
+        targetRef.current = 1;
+        intent = 0;
+      } else if (intent <= -threshold) {
+        targetRef.current = 0;
+        intent = 0;
+      }
       animateToTarget();
     };
 
@@ -343,6 +355,7 @@ export default function App() {
     window.addEventListener("keydown", onKeyDown);
 
     return () => {
+      window.clearTimeout(intentTimer);
       window.removeEventListener("wheel", onWheel as any);
       window.removeEventListener("touchstart", onTouchStart as any);
       window.removeEventListener("touchmove", onTouchMove as any);
