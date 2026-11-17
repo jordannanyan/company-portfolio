@@ -8,6 +8,7 @@ export type FeatureItem = {
   body: string;
   imageSrc: string;
   imageAlt: string;
+  images?: CarouselImage[];
 };
 
 type CarouselImage = { src: string; alt?: string };
@@ -132,7 +133,7 @@ function HeroCarousel({
             <img
               src={img.src}
               alt={img.alt ?? `Slide ${i + 1}`}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-top"
               draggable={false}
               loading="lazy"
             />
@@ -176,7 +177,7 @@ export default function FeatureBlock({
 
   const isLeft = side === "left";
 
-  const heightClassName = "h-[380px] sm:h-[480px] lg:h-[580px]";
+  const heightClassName = "aspect-[16/10] bg-white";
 
   return (
     <section ref={ref} className="mx-auto max-w-6xl px-4 py-16 sm:py-24">

@@ -159,7 +159,7 @@ export default function LeadForm() {
             name="message"
             rows={5}
             maxLength={3000}
-            placeholder="Contoh: Skripsi Manajemen bab 4–5, olah data SPSS, kampus UPR, target sidang bulan depan."
+            placeholder="Contoh: Skripsi Manajemen bab 4–5, olah data SPSS, target sidang bulan depan."
             className={inputCls + " resize-y"}
             aria-invalid={!!errors.message}
           />

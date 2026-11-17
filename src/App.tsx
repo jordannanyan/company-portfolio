@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 
 import FeatureTriptych from "./components/FeatureTriptych";
-import DiscoverMoreSection from "./components/DiscoverMoreSection";
+import PortfolioSection from "./components/PortfolioSection";
+import ProcessSection from "./components/ProcessSection";
 import ContactUsSection from "./components/ContactUsSection";
 import FooterSection from "./components/FooterSection";
 import TopLogo from "./components/TopLogo";
@@ -43,6 +44,9 @@ function introStyles(progress: number) {
       boxShadow: `0 30px 80px rgba(0,0,0,${lerp(0.35, 0, e)})`,
     },
     overlay: { opacity: lerp(0.45, 0.2, e) * 0.4 },
+    // device mockups rise from under the title into view as the title leaves
+    stage: { transform: `translateY(${lerp(0, -38, e).toFixed(2)}vh)` },
+    fade: { opacity: lerp(1, 0, e) },
     // NAVBAR exit
     nav: {
       height: Math.round(lerp(64, 0, clamp((e - 0.12) / 0.55, 0, 1))),
@@ -69,6 +73,8 @@ export default function App() {
   const [scrollUnlocked, setScrollUnlocked] = useState(false);
   const heroFrameRef = useRef<HTMLDivElement>(null);
   const heroOverlayRef = useRef<HTMLDivElement>(null);
+  const heroStageRef = useRef<HTMLDivElement>(null);
+  const heroFadeRef = useRef<HTMLDivElement>(null);
   const heroTitleRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -118,6 +124,8 @@ export default function App() {
     const s = introStyles(progress);
     applyStyle(heroFrameRef.current, s.frame);
     applyStyle(heroOverlayRef.current, s.overlay);
+    applyStyle(heroStageRef.current, s.stage);
+    applyStyle(heroFadeRef.current, s.fade);
     applyStyle(heroTitleRef.current, s.title);
     applyStyle(navRef.current, s.nav);
   };
@@ -369,13 +377,12 @@ export default function App() {
   }, []);
 
   // `href` items are real links (opened in a new tab) instead of in-page scroll targets.
-  const PORTFOLIO_PDF = "/portofolio-bantu-tugas.pdf";
   const navItems: { label: string; id: string; href?: string }[] = [
     { label: "Home", id: "top" },
     { label: "Layanan", id: "features" },
-    { label: "Harga", id: "pricing" },
+    { label: "Portofolio", id: "portfolio" },
     { label: "Track Record", id: "stats" },
-    { label: "Portofolio", id: "portfolio", href: PORTFOLIO_PDF },
+    { label: "Harga", id: "pricing" },
     { label: "Contact", id: "contact" },
   ];
 
@@ -541,7 +548,7 @@ export default function App() {
           style={INTRO_START.frame}
         >
           <div className="intro-zoom h-full w-full">
-            <HeroIllustration />
+            <HeroIllustration stageRef={heroStageRef} fadeRef={heroFadeRef} />
           </div>
           <div ref={heroOverlayRef} className="absolute inset-0 bg-black pointer-events-none" style={INTRO_START.overlay} />
         </div>
@@ -579,16 +586,20 @@ export default function App() {
           <FeatureTriptych />
         </section>
 
-        <section id="pricing" className="scroll-mt-24">
-          <PricingSection />
+        <section id="portfolio" className="scroll-mt-24 border-t border-white/10">
+          <PortfolioSection />
         </section>
 
         <section id="stats" className="scroll-mt-24">
           <StatsSection />
         </section>
 
-        <section id="discover" className="scroll-mt-24">
-          <DiscoverMoreSection />
+        <section id="pricing" className="scroll-mt-24">
+          <PricingSection />
+        </section>
+
+        <section id="process" className="scroll-mt-24">
+          <ProcessSection />
         </section>
 
         <section id="contact" className="scroll-mt-24">

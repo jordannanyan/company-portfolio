@@ -28,6 +28,7 @@ export default function FooterSection() {
             <ul className="mt-5 space-y-3 text-sm text-white/70">
               <li><a href="#top" className="hover:text-white transition-colors">Home</a></li>
               <li><a href="#features" className="hover:text-white transition-colors">Layanan</a></li>
+              <li><a href="#portfolio" className="hover:text-white transition-colors">Portofolio</a></li>
               <li><a href="#pricing" className="hover:text-white transition-colors">Harga</a></li>
               <li><a href="#stats" className="hover:text-white transition-colors">Track Record</a></li>
               <li><a href="/portofolio-bantu-tugas.pdf" target="_blank" rel="noopener" className="hover:text-white transition-colors">Portofolio (PDF)</a></li>
